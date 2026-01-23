@@ -36,7 +36,7 @@ class Scraper:
     def parse_site(self,url:str,params:List[str])-> None: # todo: add Job type
         pass
 
-    def format_site_url(self,job_site:JobSite,params:QueryParams)-> str:
+    def format_site_url(job_site:JobSite,params:QueryParams)-> str:
         print(job_site,params)
 
 def foo():
