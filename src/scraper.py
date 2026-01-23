@@ -4,23 +4,12 @@ from dataclasses import dataclass
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from job import JobType, JobSite, Remote
+from job import JobSite, QueryParams
 from url_formatter import URL_Formatter
 
 class Driver(Enum):
     FIREFOX = 1
     CHROME = 2
-
-@dataclass
-class QueryParams:
-    location   : str
-    job_title  : str
-    radius     : float
-    salary_min : int
-    salary_max : int
-    job_type   : JobType
-    locale     : str
-    remote     : Remote
 
 class Scraper:
 

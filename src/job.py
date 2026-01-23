@@ -23,3 +23,15 @@ class JobSite:
 
     INDEED = 1
     REED   = 2
+
+    
+@dataclass
+class QueryParams:
+    location   : str
+    job_title  : str
+    radius     : float
+    salary_min : int
+    salary_max : int
+    job_type   : JobType
+    locale     : str
+    remote     : Remote
