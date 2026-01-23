@@ -3,10 +3,10 @@ from dataclasses import dataclass
 
 class JobType(Enum):
 
-    FULLTIME        = 1
-    PARTTIME        = 2
+    FULL_TIME       = 1
+    PART_TIME       = 2
     PERMANENT       = 3
-    FIXEDCONTRACT   = 4
+    FIXED_CONTRACT  = 4
     GRADUATE        = 5
     INTERNSHIP      = 6
     APPRENTICESHIP  = 7
@@ -15,5 +15,6 @@ class JobType(Enum):
 @dataclass
 class JobSite:
 
-    INDEED = 1
-    REED   = 2
+    INDEED_UK = 1
+    INDEED_US = 2
+    REED   = 3
