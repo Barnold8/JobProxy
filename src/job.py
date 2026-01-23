@@ -12,6 +12,12 @@ class JobType(Enum):
     APPRENTICESHIP  = 7
     FREELANCE       = 8
 
+class Remote(Enum):
+
+    REMOTE = 1
+    HYBRID = 2
+    OFFICE = 3
+
 @dataclass
 class JobSite:
 
