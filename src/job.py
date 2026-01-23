@@ -1,4 +1,5 @@
 from enum import Enum
+from dataclasses import dataclass
 
 class JobType(Enum):
 
@@ -11,4 +12,8 @@ class JobType(Enum):
     APPRENTICESHIP  = 7
     FREELANCE       = 8
 
-    
+@dataclass
+class JobSite:
+
+    INDEED = 1
+    REED   = 2
