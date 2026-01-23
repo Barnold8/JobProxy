@@ -1,4 +1,3 @@
-from dataclasses import dataclass
 from enum import Enum
 
 class JobType(Enum):
@@ -13,11 +12,3 @@ class JobType(Enum):
     FREELANCE       = 8
 
     
-@dataclass
-class QueryParams:
-    location   : str
-    job_title  : str
-    radius     : float
-    salary_min : int
-    salary_max : int
-    job_type   : JobType
