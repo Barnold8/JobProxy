@@ -16,7 +16,7 @@ class URL_Formatter:
                 )        
 
     def indeed(job_site:JobSite,params:QueryParams)-> str:
-        pass
+        return f"{params.locale}.indeed.com/jobs?q={params.job_title}&l={params.location}&radius={params.radius}&from=searchOnDesktopSerp"
 
     def reed(job_site:JobSite,params:QueryParams):
         pass
