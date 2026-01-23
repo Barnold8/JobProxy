@@ -1,11 +1,23 @@
+from typing import List
 from enum import Enum
+from dataclasses import dataclass
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from job import JobType
 
 class Driver(Enum):
     FIREFOX = 1
     CHROME = 2
+
+@dataclass
+class QueryParams:
+    location   : str
+    job_title  : str
+    radius     : float
+    salary_min : int
+    salary_max : int
+    job_type   : JobType
 
 class Scraper:
 
@@ -21,5 +33,12 @@ class Scraper:
             case Driver.CHROME:
                 self.driver = webdriver.Chrome()
 
-    def parse_site(self, url:str)-> None:
+    def parse_site(self,url:str,params:List[str])-> None: # todo: add Job type
         pass
+
+    def format_site_url(self,job_site,params):
+        print(job_site,params)
+
+def foo():
+    s = Scraper(Driver.FIREFOX)
+    s.format_site_url("reed","")
