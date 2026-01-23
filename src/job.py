@@ -15,6 +15,5 @@ class JobType(Enum):
 @dataclass
 class JobSite:
 
-    INDEED_UK = 1
-    INDEED_US = 2
-    REED   = 3
+    INDEED = 1
+    REED   = 2
