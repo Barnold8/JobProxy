@@ -18,6 +18,7 @@ class QueryParams:
     salary_min : int
     salary_max : int
     job_type   : JobType
+    locale     : str
 
 class Scraper:
 
@@ -39,6 +40,6 @@ class Scraper:
     def format_site_url(job_site:JobSite,params:QueryParams)-> str:
         print(job_site,params)
 
-def foo():
-    s = Scraper(Driver.FIREFOX)
-    s.format_site_url("reed","")
+# def foo():
+#     s = Scraper(Driver.FIREFOX)
+#     s.format_site_url("reed","")
