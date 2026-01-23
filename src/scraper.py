@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from job import JobType
+from job import JobType, JobSite
 
 class Driver(Enum):
     FIREFOX = 1
@@ -36,7 +36,7 @@ class Scraper:
     def parse_site(self,url:str,params:List[str])-> None: # todo: add Job type
         pass
 
-    def format_site_url(self,job_site,params):
+    def format_site_url(self,job_site:JobSite,params:QueryParams)-> str:
         print(job_site,params)
 
 def foo():
