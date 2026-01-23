@@ -1,7 +1,6 @@
 import unittest
-from selenium import webdriver
 from src import scraper
-from src.job import JobType
+from src.job import JobType,Remote
 
 class TestScraper(unittest.TestCase):
 
@@ -14,11 +13,12 @@ class TestScraper(unittest.TestCase):
             'Abidjan': scraper.QueryParams (
                 "Abidjan",
                 "cleaner",
-                1.0,
+                -10,
                 1 ,
                 10 ,
                 JobType.FULL_TIME,
-                "fr"
+                "fr",
+                Remote.HYBRID
             ),
             'Ecatepec': scraper.QueryParams (
                 "Ecatepec",
@@ -27,16 +27,18 @@ class TestScraper(unittest.TestCase):
                 1 ,
                 10 ,
                 JobType.FULL_TIME,
-                "mx"
+                "mx",
+                Remote.OFFICE
             ),
             'Ibadan': scraper.QueryParams (
                 "Ibadan",
                 "job_title",
                 1.0,
-                1 ,
-                10 ,
+                70 ,
+                30 ,
                 JobType.FULL_TIME,
-                "ng"
+                "ng",
+                Remote.HYBRID
             ), 
             'MADRID': scraper.QueryParams (
                 "MADRID",
@@ -45,7 +47,8 @@ class TestScraper(unittest.TestCase):
                 1 ,
                 10 ,
                 JobType.FULL_TIME,
-                "es"
+                "es",
+                Remote.REMOTE
             ),
             'Qingdao': scraper.QueryParams (
                 "Qingdao",
@@ -54,7 +57,8 @@ class TestScraper(unittest.TestCase):
                 1 ,
                 10 ,
                 JobType.FULL_TIME,
-                "cn"
+                "cn",
+                Remote.HYBRID
 
             ),
             'Ufa': scraper.QueryParams (
@@ -64,7 +68,8 @@ class TestScraper(unittest.TestCase):
                 1 ,
                 10 ,
                 JobType.FULL_TIME,
-                "ru"
+                "ru",
+                Remote.OFFICE
             ),
             'Yangon': scraper.QueryParams (
                 "Yangon",
@@ -73,10 +78,12 @@ class TestScraper(unittest.TestCase):
                 1 ,
                 10 ,
                 JobType.FULL_TIME,
-                "mm"
+                "mm",
+                Remote.REMOTE
             )
 
         }
+
         test_expected = {
             'Abidjan': "",
             'Ecatepec':  "",
