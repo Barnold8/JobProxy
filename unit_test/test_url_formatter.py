@@ -1,7 +1,7 @@
 import unittest
-import src.backend.scraper as scraper
-import src.backend.url_formatter as url_formatter
-import src.backend.job as job
+import backend.scraper as scraper
+import backend.url_formatter as url_formatter
+import backend.job as job
 
 # Source - https://stackoverflow.com/a
 # Posted by pts, modified by community. See post 'Timeline' for change history

@@ -1,5 +1,8 @@
-import sys, os
-path = os.path.dirname(__file__)
-path = os.path.join(path, '../src')
-if path not in sys.path:
-    sys.path.append(path)
+
+import sys
+from pathlib import Path
+
+# Add src folder to sys.path for tests
+src_path = Path(__file__).resolve().parent.parent / "src"
+if str(src_path) not in sys.path:
+    sys.path.insert(0, str(src_path))
