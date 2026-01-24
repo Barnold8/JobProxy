@@ -91,8 +91,11 @@ class Test_URL_Formatter(unittest.TestCase):
                 "mm",
                 job.Remote.REMOTE
             ),
-            'Edinburg': None,
-            'Hamburg': -1
+            'Edinburg'   : None,
+            'Hamburg'    : -1,
+            "Riscani"    : "ff",
+            "Moen"       : False,
+            "Magtanggol" : 8.0
         }
 
         test_expected = {
