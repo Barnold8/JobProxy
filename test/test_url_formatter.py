@@ -120,7 +120,7 @@ class Test_URL_Formatter(unittest.TestCase):
         ## Check invalid instances
         for key in test_unexpected:
             self.assertRaises(
-                TypeError,
+                AttributeError,
                 url_formatter.URL_Formatter.indeed,
                 job.JobSite.INDEED,
                 test_input[key]
