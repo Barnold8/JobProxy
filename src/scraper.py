@@ -5,7 +5,7 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from job import JobSite, QueryParams
-from url_formatter import URL_Formatter
+import url_formatter
 
 class Driver(Enum):
     FIREFOX = 1
@@ -29,7 +29,7 @@ class Scraper:
         pass
 
     def format_site_url(job_site:JobSite,params:QueryParams)-> str:
-        return URL_Formatter.format_url(job_site,params)
+        return url_formatter.URL_Formatter.format_url(job_site,params)
 
 # def foo():
 #     s = Scraper(Driver.FIREFOX)
