@@ -27,7 +27,7 @@ jobs:
 
       - name: Run mypy
         run: |
-          mypy .
+          mypy src unit_test
 
       - name: Run unit tests
         run: |
