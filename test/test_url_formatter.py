@@ -19,7 +19,6 @@ class TestScraper(unittest.TestCase):
         pass
 
     def test_format_site_url_INDEED(self):
-
         test_input = {
             'Abidjan': scraper.QueryParams (
                 "Abidjan",
@@ -106,15 +105,25 @@ class TestScraper(unittest.TestCase):
             'Yangon':   "https://mm.indeed.com/jobs?q=&l=Yangon&radius=25&from=searchOnDesktopSerp",
         }
 
-        test_unexpected = {
-            'Edinburg': "",
-            'Hamburg' : ""
-        }
+        test_unexpected = [
+            'Edinburg',
+            'Hamburg',
+        ]
 
+        ## Check valid instances 
         for key in test_expected.keys():
             self.assertEqual(
                 test_expected[key],
                 url_formatter.URL_Formatter.indeed(job.JobSite.INDEED,test_input[key])
+            )
+
+        ## Check invalid instances
+        for key in test_unexpected:
+            self.assertRaises(
+                TypeError,
+                url_formatter.URL_Formatter.indeed,
+                job.JobSite.INDEED,
+                test_input[key]
             )
         
 
