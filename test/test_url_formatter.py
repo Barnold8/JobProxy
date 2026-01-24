@@ -125,7 +125,3 @@ class Test_URL_Formatter(unittest.TestCase):
                 job.JobSite.INDEED,
                 test_input[key]
             )
-        
-
-if __name__ == "__main__":
-    unittest.main()
