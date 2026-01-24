@@ -32,8 +32,8 @@ class TestScraper(unittest.TestCase):
             ),
             'Ecatepec': scraper.QueryParams (
                 "Ecatepec",
-                "job_title",
-                1.0,
+                "programmer",
+                -5,
                 1 ,
                 10 ,
                 job.JobType.FULL_TIME,
@@ -42,8 +42,8 @@ class TestScraper(unittest.TestCase):
             ),
             'Ibadan': scraper.QueryParams (
                 "Ibadan",
-                "job_title",
-                1.0,
+                "politician",
+                25,
                 70 ,
                 30 ,
                 job.JobType.FULL_TIME,
@@ -52,8 +52,8 @@ class TestScraper(unittest.TestCase):
             ), 
             'MADRID': scraper.QueryParams (
                 "MADRID",
-                "job_title",
-                1.0,
+                "NOT_A_JOB",
+                2147483647,
                 1 ,
                 10 ,
                 job.JobType.FULL_TIME,
@@ -62,8 +62,8 @@ class TestScraper(unittest.TestCase):
             ),
             'Qingdao': scraper.QueryParams (
                 "Qingdao",
-                "job_title",
-                1.0,
+                "\"bricklayer\"",
+                9,
                 1 ,
                 10 ,
                 job.JobType.FULL_TIME,
@@ -73,18 +73,18 @@ class TestScraper(unittest.TestCase):
             ),
             'Ufa': scraper.QueryParams (
                 "Ufa",
-                "job_title",
-                1.0,
-                1 ,
+                "A Weird String © tHat_ h.'/as so-1szme difüüfeürent küinds oüf chaĐracters ",
                 100000000000000,
+                1 ,
+                10,
                 job.JobType.FULL_TIME,
                 "ru",
                 job.Remote.OFFICE
             ),
             'Yangon': scraper.QueryParams (
                 "Yangon",
-                "job_title",
-                1.0,
+                "",
+                25,
                 1 ,
                 10 ,
                 job.JobType.FULL_TIME,
@@ -94,13 +94,13 @@ class TestScraper(unittest.TestCase):
         }
 
         test_expected = {
-            'Abidjan':  "https://fr.indeed.com/jobs?q=cleaner&l=Abidjan&radius=10&from=searchOnDesktopSerp",
+            'Abidjan':  "https://fr.indeed.com/jobs?q=cleaner&l=Abidjan&radius=-10&from=searchOnDesktopSerp",
             'Ecatepec': "https://mx.indeed.com/jobs?q=programmer&l=Ecatepec&radius=-5&from=searchOnDesktopSerp",
             'Ibadan':   "https://ng.indeed.com/jobs?q=politician&l=Ibadan&radius=25&from=searchOnDesktopSerp",
-            'MADRID':   "https://es.indeed.com/jobs?q=NOT_A_JOB&l=MADRID&radius=25&from=searchOnDesktopSerp",
-            'Qingdao':  "https://cn.indeed.com/jobs?q=\"bricklayer\"&l=Qingdao&radius=25&from=searchOnDesktopSerp",
+            'MADRID':   "https://es.indeed.com/jobs?q=NOT_A_JOB&l=MADRID&radius=2147483647&from=searchOnDesktopSerp",
+            'Qingdao':  "https://cn.indeed.com/jobs?q=\"bricklayer\"&l=Qingdao&radius=9&from=searchOnDesktopSerp",
             'Ufa':      "https://ru.indeed.com/jobs?q=A Weird String © tHat_ h.'/as so-1szme difüüfeürent küinds oüf chaĐracters &l=Ufa&radius=100000000000000&from=searchOnDesktopSerp",
-            'Yangon':   "https://mm.indeed.com/jobs?q=&l=Abidjan&radius=25&from=searchOnDesktopSerp",
+            'Yangon':   "https://mm.indeed.com/jobs?q=&l=Yangon&radius=25&from=searchOnDesktopSerp",
         }
 
         for key in test_input.keys():
@@ -108,9 +108,6 @@ class TestScraper(unittest.TestCase):
                 test_expected[key],
                 scraper.Scraper.format_site_url(job.JobSite.INDEED,test_input[key])
             )
-
-
-        assert False
 
 if __name__ == "__main__":
     unittest.main()
