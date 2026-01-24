@@ -13,7 +13,7 @@ if 'unittest.util' in __import__('sys').modules:
 
 ################################################################################
 
-class TestScraper(unittest.TestCase):
+class Test_URL_Formatter(unittest.TestCase):
 
     def test_parse_site(self):
         pass
