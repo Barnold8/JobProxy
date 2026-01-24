@@ -1,9 +1,9 @@
-from scraper import QueryParams
+import scraper
 from job import JobSite
 
 class URL_Formatter:
 
-    def format_url(job_site:JobSite,params:QueryParams):
+    def format_url(job_site:JobSite,params:scraper.QueryParams):
 
         match job_site:
             case JobSite.INDEED:
@@ -15,8 +15,8 @@ class URL_Formatter:
                     job_site,params
                 )        
 
-    def indeed(job_site:JobSite,params:QueryParams)-> str:
+    def indeed(job_site:JobSite,params:scraper.QueryParams)-> str:
         return f"{params.locale}.indeed.com/jobs?q={params.job_title}&l={params.location}&radius={params.radius}&from=searchOnDesktopSerp"
 
-    def reed(job_site:JobSite,params:QueryParams):
+    def reed(job_site:JobSite,params:scraper.QueryParams):
         pass
