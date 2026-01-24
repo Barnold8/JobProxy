@@ -15,89 +15,91 @@ if 'unittest.util' in __import__('sys').modules:
 
 class Test_URL_Formatter(unittest.TestCase):
 
+    test_input = {
+        'Abidjan': scraper.QueryParams (
+            "Abidjan",
+            "cleaner",
+            -10,
+            1 ,
+            10 ,
+            job.JobType.FULL_TIME,
+            "fr",
+            job.Remote.HYBRID
+        ),
+        'Ecatepec': scraper.QueryParams (
+            "Ecatepec",
+            "programmer",
+            -5,
+            1 ,
+            10 ,
+            job.JobType.FULL_TIME,
+            "mx",
+            job.Remote.OFFICE
+        ),
+        'Ibadan': scraper.QueryParams (
+            "Ibadan",
+            "politician",
+            25,
+            70 ,
+            30 ,
+            job.JobType.FULL_TIME,
+            "ng",
+            job.Remote.HYBRID
+        ), 
+        'MADRID': scraper.QueryParams (
+            "MADRID",
+            "NOT_A_JOB",
+            2147483647,
+            1 ,
+            10 ,
+            job.JobType.FULL_TIME,
+            "es",
+            job.Remote.REMOTE
+        ),
+        'Qingdao': scraper.QueryParams (
+            "Qingdao",
+            "\"bricklayer\"",
+            9,
+            1 ,
+            10 ,
+            job.JobType.FULL_TIME,
+            "cn",
+            job.Remote.HYBRID
+
+        ),
+        'Ufa': scraper.QueryParams (
+            "Ufa",
+            "A Weird String © tHat_ h.'/as so-1szme difüüfeürent küinds oüf chaĐracters ",
+            100000000000000,
+            1 ,
+            10,
+            job.JobType.FULL_TIME,
+            "ru",
+            job.Remote.OFFICE
+        ),
+        'Yangon': scraper.QueryParams (
+            "Yangon",
+            "",
+            25,
+            1 ,
+            10 ,
+            job.JobType.FULL_TIME,
+            "mm",
+            job.Remote.REMOTE
+        ),
+        'Edinburg'   : None,
+        'Hamburg'    : -1,
+        "Riscani"    : "ff",
+        "Moen"       : False,
+        "Magtanggol" : 8.0
+    }
+
     def test_parse_site(self):
         pass
 
     def test_format_site_url_INDEED(self):
-        test_input = {
-            'Abidjan': scraper.QueryParams (
-                "Abidjan",
-                "cleaner",
-                -10,
-                1 ,
-                10 ,
-                job.JobType.FULL_TIME,
-                "fr",
-                job.Remote.HYBRID
-            ),
-            'Ecatepec': scraper.QueryParams (
-                "Ecatepec",
-                "programmer",
-                -5,
-                1 ,
-                10 ,
-                job.JobType.FULL_TIME,
-                "mx",
-                job.Remote.OFFICE
-            ),
-            'Ibadan': scraper.QueryParams (
-                "Ibadan",
-                "politician",
-                25,
-                70 ,
-                30 ,
-                job.JobType.FULL_TIME,
-                "ng",
-                job.Remote.HYBRID
-            ), 
-            'MADRID': scraper.QueryParams (
-                "MADRID",
-                "NOT_A_JOB",
-                2147483647,
-                1 ,
-                10 ,
-                job.JobType.FULL_TIME,
-                "es",
-                job.Remote.REMOTE
-            ),
-            'Qingdao': scraper.QueryParams (
-                "Qingdao",
-                "\"bricklayer\"",
-                9,
-                1 ,
-                10 ,
-                job.JobType.FULL_TIME,
-                "cn",
-                job.Remote.HYBRID
-
-            ),
-            'Ufa': scraper.QueryParams (
-                "Ufa",
-                "A Weird String © tHat_ h.'/as so-1szme difüüfeürent küinds oüf chaĐracters ",
-                100000000000000,
-                1 ,
-                10,
-                job.JobType.FULL_TIME,
-                "ru",
-                job.Remote.OFFICE
-            ),
-            'Yangon': scraper.QueryParams (
-                "Yangon",
-                "",
-                25,
-                1 ,
-                10 ,
-                job.JobType.FULL_TIME,
-                "mm",
-                job.Remote.REMOTE
-            ),
-            'Edinburg'   : None,
-            'Hamburg'    : -1,
-            "Riscani"    : "ff",
-            "Moen"       : False,
-            "Magtanggol" : 8.0
-        }
-
+        
+        test_input = Test_URL_Formatter.test_input
         test_expected = {
             'Abidjan':  "https://fr.indeed.com/jobs?q=cleaner&l=Abidjan&radius=-10&from=searchOnDesktopSerp",
             'Ecatepec': "https://mx.indeed.com/jobs?q=programmer&l=Ecatepec&radius=-5&from=searchOnDesktopSerp",
