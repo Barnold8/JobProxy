@@ -2,7 +2,15 @@ import unittest
 import src.scraper as scraper
 import src.job as job
 
+# Source - https://stackoverflow.com/a
+# Posted by pts, modified by community. See post 'Timeline' for change history
+# Retrieved 2026-01-24, License - CC BY-SA 4.0
 
+if 'unittest.util' in __import__('sys').modules:
+    # Show full diff in self.assertEqual.
+    __import__('sys').modules['unittest.util']._MAX_LENGTH = 999999999
+
+################################################################################
 
 class TestScraper(unittest.TestCase):
 
@@ -68,7 +76,7 @@ class TestScraper(unittest.TestCase):
                 "job_title",
                 1.0,
                 1 ,
-                10 ,
+                100000000000000,
                 job.JobType.FULL_TIME,
                 "ru",
                 job.Remote.OFFICE
@@ -82,25 +90,23 @@ class TestScraper(unittest.TestCase):
                 job.JobType.FULL_TIME,
                 "mm",
                 job.Remote.REMOTE
-            )
-
+            ),
         }
 
         test_expected = {
-            'Abidjan': "https://fr.indeed.com/jobs?q=cleaner&l=Abidjan&radius=25&from=searchOnDesktopSerp",
-            'Ecatepec':  "",
-            'Ibadan': "",
-            'MADRID':  "",
-            'Qingdao': "",
-            'Ufa':  "",
-            'Yangon':  "",
-
+            'Abidjan':  "https://fr.indeed.com/jobs?q=cleaner&l=Abidjan&radius=10&from=searchOnDesktopSerp",
+            'Ecatepec': "https://mx.indeed.com/jobs?q=programmer&l=Ecatepec&radius=-5&from=searchOnDesktopSerp",
+            'Ibadan':   "https://ng.indeed.com/jobs?q=politician&l=Ibadan&radius=25&from=searchOnDesktopSerp",
+            'MADRID':   "https://es.indeed.com/jobs?q=NOT_A_JOB&l=MADRID&radius=25&from=searchOnDesktopSerp",
+            'Qingdao':  "https://cn.indeed.com/jobs?q=\"bricklayer\"&l=Qingdao&radius=25&from=searchOnDesktopSerp",
+            'Ufa':      "https://ru.indeed.com/jobs?q=A Weird String © tHat_ h.'/as so-1szme difüüfeürent küinds oüf chaĐracters &l=Ufa&radius=100000000000000&from=searchOnDesktopSerp",
+            'Yangon':   "https://mm.indeed.com/jobs?q=&l=Abidjan&radius=25&from=searchOnDesktopSerp",
         }
 
         for key in test_input.keys():
             self.assertEqual(
                 test_expected[key],
-                scraper.Scraper.format_site_url(test_input[key])
+                scraper.Scraper.format_site_url(job.JobSite.INDEED,test_input[key])
             )
 
 
