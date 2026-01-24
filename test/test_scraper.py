@@ -1,13 +1,15 @@
 import unittest
-from src import scraper
-from src.job import JobType,Remote
+import src.scraper as scraper
+import src.job as job
+
+
 
 class TestScraper(unittest.TestCase):
 
     def test_parse_site(self):
         pass
 
-    def test_format_site_url(self):
+    def test_format_site_url_INDEED(self):
 
         test_input = {
             'Abidjan': scraper.QueryParams (
@@ -16,9 +18,9 @@ class TestScraper(unittest.TestCase):
                 -10,
                 1 ,
                 10 ,
-                JobType.FULL_TIME,
+                job.JobType.FULL_TIME,
                 "fr",
-                Remote.HYBRID
+                job.Remote.HYBRID
             ),
             'Ecatepec': scraper.QueryParams (
                 "Ecatepec",
@@ -26,9 +28,9 @@ class TestScraper(unittest.TestCase):
                 1.0,
                 1 ,
                 10 ,
-                JobType.FULL_TIME,
+                job.JobType.FULL_TIME,
                 "mx",
-                Remote.OFFICE
+                job.Remote.OFFICE
             ),
             'Ibadan': scraper.QueryParams (
                 "Ibadan",
@@ -36,9 +38,9 @@ class TestScraper(unittest.TestCase):
                 1.0,
                 70 ,
                 30 ,
-                JobType.FULL_TIME,
+                job.JobType.FULL_TIME,
                 "ng",
-                Remote.HYBRID
+                job.Remote.HYBRID
             ), 
             'MADRID': scraper.QueryParams (
                 "MADRID",
@@ -46,9 +48,9 @@ class TestScraper(unittest.TestCase):
                 1.0,
                 1 ,
                 10 ,
-                JobType.FULL_TIME,
+                job.JobType.FULL_TIME,
                 "es",
-                Remote.REMOTE
+                job.Remote.REMOTE
             ),
             'Qingdao': scraper.QueryParams (
                 "Qingdao",
@@ -56,9 +58,9 @@ class TestScraper(unittest.TestCase):
                 1.0,
                 1 ,
                 10 ,
-                JobType.FULL_TIME,
+                job.JobType.FULL_TIME,
                 "cn",
-                Remote.HYBRID
+                job.Remote.HYBRID
 
             ),
             'Ufa': scraper.QueryParams (
@@ -67,9 +69,9 @@ class TestScraper(unittest.TestCase):
                 1.0,
                 1 ,
                 10 ,
-                JobType.FULL_TIME,
+                job.JobType.FULL_TIME,
                 "ru",
-                Remote.OFFICE
+                job.Remote.OFFICE
             ),
             'Yangon': scraper.QueryParams (
                 "Yangon",
@@ -77,15 +79,15 @@ class TestScraper(unittest.TestCase):
                 1.0,
                 1 ,
                 10 ,
-                JobType.FULL_TIME,
+                job.JobType.FULL_TIME,
                 "mm",
-                Remote.REMOTE
+                job.Remote.REMOTE
             )
 
         }
 
         test_expected = {
-            'Abidjan': "",
+            'Abidjan': "https://fr.indeed.com/jobs?q=cleaner&l=Abidjan&radius=25&from=searchOnDesktopSerp",
             'Ecatepec':  "",
             'Ibadan': "",
             'MADRID':  "",
