@@ -136,7 +136,7 @@ class Test_URL_Formatter(unittest.TestCase):
        
         test_input = Test_URL_Formatter.test_input
         test_expected = {
-            'Abidjan':  "https://www.reed.co.uk/jobs/part-time-work-from-home-cleaning-job-jobs-in-abidjan?proximity=-10&salaryFrom=1&salaryTo=10",
+            'Abidjan':  "https://www.reed.co.uk/jobs/part-time-work-from-home-cleaner-job-jobs-in-abidjan?proximity=-10&salaryFrom=1&salaryTo=10",
             'Ecatepec': "https://www.reed.co.uk/jobs/programmer-jobs-in-ecatepec?proximity=-5&salaryFrom=1&salaryTo=10",
             'Ibadan':   "https://www.reed.co.uk/jobs/graduate-politician-jobs-in-Ibadan?proximity=25&salaryFrom=70&salaryTo=30",
             'MADRID':   "https://www.reed.co.uk/jobs/work-from-home-NOT_A_JOB-jobs-in-MADRID?proximity=21474836475&salaryFrom=1&salaryTo=10",
