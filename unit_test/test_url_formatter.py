@@ -101,6 +101,11 @@ class Test_URL_Formatter(unittest.TestCase):
         "Magtanggol" : 8.0
     }
 
+    def test_space_to_dash(self):
+        pass
+    def test_args_have_value(self):
+        pass
+
     def test_parse_site(self):
         pass
 
@@ -146,9 +151,9 @@ class Test_URL_Formatter(unittest.TestCase):
             'Abidjan':  "https://www.reed.co.uk/jobs/part-time-work-from-home-cleaner-jobs-in-Abidjan?proximity=-10&salaryFrom=1&salaryTo=10",
             'Ecatepec': "https://www.reed.co.uk/jobs/programmer-jobs-in-Ecatepec?proximity=-5&salaryFrom=1&salaryTo=10",
             'Ibadan':   "https://www.reed.co.uk/jobs/full-time-graduate-work-from-home-politician-jobs-in-Ibadan?proximity=25&salaryFrom=70&salaryTo=30",
-            'MADRID':   "https://www.reed.co.uk/jobs/work-from-home-NOT_A_JOB-jobs-in-MADRID?proximity=21474836475&salaryFrom=1&salaryTo=10",
-            'Qingdao':  "https://www.reed.co.uk/jobs/\"bricklayer\"-jobs-in-Qingdao?proximity=9&salaryFrom=1&salaryTo=10",
-            'Ufa':      "https://www.reed.co.uk/jobs/A Weird String © tHat_ h.'/as so-1szme difüüfeürent küinds oüf chaĐracters -jobs-in-Ufa?proximity=100000000000000&salaryFrom=1&salaryTo=10",
+            'MADRID':   "https://www.reed.co.uk/jobs/work-from-home-NOT_A_JOB-jobs-in-MADRID?proximity=2147483647&salaryFrom=1&salaryTo=10",
+            'Qingdao':  "https://www.reed.co.uk/jobs/work-from-home-\"bricklayer\"-jobs-in-Qingdao?proximity=9&salaryFrom=1&salaryTo=10",
+            'Ufa':      "https://www.reed.co.uk/jobs/full-time-A-Weird-String-©-tHat_-h.'/as-so-1szme-difüüfeürent-küinds-oüf-chaĐracters--jobs-in-Ufa?proximity=100000000000000&salaryFrom=1&salaryTo=10",
             'Yangon':   "https://www.reed.co.uk/jobs/contract-work-from-home-jobs-in-Yangon?proximity=25&salaryFrom=1&salaryTo=10",
         }
 
