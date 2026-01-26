@@ -22,7 +22,7 @@ class Test_URL_Formatter(unittest.TestCase):
             -10,
             1 ,
             10 ,
-            job.JobType.FULL_TIME,
+            job.JobType.PART_TIME,
             "fr",
             job.Remote.HYBRID
         ),
@@ -32,7 +32,7 @@ class Test_URL_Formatter(unittest.TestCase):
             -5,
             1 ,
             10 ,
-            job.JobType.FULL_TIME,
+            job.JobType.APPRENTICESHIP,
             "mx",
             job.Remote.OFFICE
         ),
@@ -42,7 +42,7 @@ class Test_URL_Formatter(unittest.TestCase):
             25,
             70 ,
             30 ,
-            job.JobType.FULL_TIME,
+            job.JobType.GRADUATE,
             "ng",
             job.Remote.HYBRID
         ), 
@@ -52,7 +52,7 @@ class Test_URL_Formatter(unittest.TestCase):
             2147483647,
             1 ,
             10 ,
-            job.JobType.FULL_TIME,
+            job.JobType.INTERNSHIP,
             "es",
             job.Remote.REMOTE
         ),
@@ -62,7 +62,7 @@ class Test_URL_Formatter(unittest.TestCase):
             9,
             1 ,
             10 ,
-            job.JobType.FULL_TIME,
+            job.JobType.PERMANENT,
             "cn",
             job.Remote.HYBRID
 
@@ -83,7 +83,7 @@ class Test_URL_Formatter(unittest.TestCase):
             25,
             1 ,
             10 ,
-            job.JobType.FULL_TIME,
+            job.JobType.FIXED_CONTRACT,
             "mm",
             job.Remote.REMOTE
         ),
@@ -128,5 +128,40 @@ class Test_URL_Formatter(unittest.TestCase):
                 AttributeError,
                 url_formatter.URL_Formatter.indeed,
                 job.JobSite.INDEED,
+                test_input[key]
+            )
+
+    def test_format_site_url_REED(self):
+        # https://www.reed.co.uk/jobs/{job-type}-{work-from-home (if remote)}-{job}-jobs-in-{location}?proximity={radius}&salaryFrom={aalarymin}&salaryTo={salarymax}  
+       
+        test_input = Test_URL_Formatter.test_input
+        test_expected = {
+            'Abidjan':  "https://www.reed.co.uk/jobs/part-time-work-from-home-cleaning-job-jobs-in-abidjan?proximity=-10&salaryFrom=1&salaryTo=10",
+            'Ecatepec': "https://www.reed.co.uk/jobs/programmer-jobs-in-ecatepec?proximity=-5&salaryFrom=1&salaryTo=10",
+            'Ibadan':   "https://www.reed.co.uk/jobs/graduate-politician-jobs-in-Ibadan?proximity=25&salaryFrom=70&salaryTo=30",
+            'MADRID':   "https://www.reed.co.uk/jobs/work-from-home-NOT_A_JOB-jobs-in-MADRID?proximity=21474836475&salaryFrom=1&salaryTo=10",
+            'Qingdao':  "https://www.reed.co.uk/jobs/\"bricklayer\"-jobs-in-Qingdao?proximity=9&salaryFrom=1&salaryTo=10",
+            'Ufa':      "https://www.reed.co.uk/jobs/A Weird String © tHat_ h.'/as so-1szme difüüfeürent küinds oüf chaĐracters -jobs-in-Ufa?proximity=100000000000000&salaryFrom=1&salaryTo=10",
+            'Yangon':   "https://www.reed.co.uk/jobs/contract-work-from-home-jobs-in-Yangon?proximity=25&salaryFrom=1&salaryTo=10",
+        }
+
+        test_unexpected = [
+            'Edinburg',
+            'Hamburg',
+        ]
+
+        ## Check valid instances 
+        for key in test_expected.keys():
+            self.assertEqual(
+                test_expected[key],
+                url_formatter.URL_Formatter.reed(job.JobSite.INDEED,test_input[key])
+            )
+
+        ## Check invalid instances
+        for key in test_unexpected:
+            self.assertRaises(
+                AttributeError,
+                url_formatter.URL_Formatter.reed,
+                job.JobSite.REED,
                 test_input[key]
             )
