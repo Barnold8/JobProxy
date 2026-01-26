@@ -7,10 +7,9 @@ class JobType(Enum):
     PART_TIME       = 2
     PERMANENT       = 3
     FIXED_CONTRACT  = 4
-    GRADUATE        = 5
-    INTERNSHIP      = 6
-    APPRENTICESHIP  = 7
-    FREELANCE       = 8
+    INTERNSHIP      = 5
+    APPRENTICESHIP  = 6
+    FREELANCE       = 7
 
 class Remote(Enum):
 
@@ -35,3 +34,4 @@ class QueryParams:
     job_type   : JobType
     locale     : str
     remote     : Remote
+    graduate   : bool
