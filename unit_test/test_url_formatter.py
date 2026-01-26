@@ -24,7 +24,8 @@ class Test_URL_Formatter(unittest.TestCase):
             10 ,
             job.JobType.PART_TIME,
             "fr",
-            job.Remote.HYBRID
+            job.Remote.HYBRID,
+            False
         ),
         'Ecatepec': scraper.QueryParams (
             "Ecatepec",
@@ -34,7 +35,8 @@ class Test_URL_Formatter(unittest.TestCase):
             10 ,
             job.JobType.APPRENTICESHIP,
             "mx",
-            job.Remote.OFFICE
+            job.Remote.OFFICE,
+            False
         ),
         'Ibadan': scraper.QueryParams (
             "Ibadan",
@@ -42,9 +44,10 @@ class Test_URL_Formatter(unittest.TestCase):
             25,
             70 ,
             30 ,
-            job.JobType.GRADUATE,
+            job.JobType.FULL_TIME,
             "ng",
-            job.Remote.HYBRID
+            job.Remote.HYBRID,
+            True
         ), 
         'MADRID': scraper.QueryParams (
             "MADRID",
@@ -54,7 +57,8 @@ class Test_URL_Formatter(unittest.TestCase):
             10 ,
             job.JobType.INTERNSHIP,
             "es",
-            job.Remote.REMOTE
+            job.Remote.REMOTE,
+            False
         ),
         'Qingdao': scraper.QueryParams (
             "Qingdao",
@@ -64,7 +68,8 @@ class Test_URL_Formatter(unittest.TestCase):
             10 ,
             job.JobType.PERMANENT,
             "cn",
-            job.Remote.HYBRID
+            job.Remote.HYBRID,
+            False
 
         ),
         'Ufa': scraper.QueryParams (
@@ -75,7 +80,8 @@ class Test_URL_Formatter(unittest.TestCase):
             10,
             job.JobType.FULL_TIME,
             "ru",
-            job.Remote.OFFICE
+            job.Remote.OFFICE,
+            False
         ),
         'Yangon': scraper.QueryParams (
             "Yangon",
@@ -85,7 +91,8 @@ class Test_URL_Formatter(unittest.TestCase):
             10 ,
             job.JobType.FIXED_CONTRACT,
             "mm",
-            job.Remote.REMOTE
+            job.Remote.REMOTE,
+            False
         ),
         'Edinburg'   : None,
         'Hamburg'    : -1,
