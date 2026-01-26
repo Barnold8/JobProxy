@@ -36,13 +36,9 @@ class URL_Formatter:
          # https://www.reed.co.uk/jobs/{job-type}-{work-from-home (if remote)}-{job}-jobs-in-{location}?proximity={radius}&salaryFrom={aalarymin}&salaryTo={salarymax}  
         
         arguments = [params.radius,params.salary_min,params.salary_max]
-
         url = "https://www.reed.co.uk/jobs/"
 
         match params.job_type:
-
-            case JobType.GRADUATE:
-                url += "graduate-"
             case JobType.FIXED_CONTRACT:
                 url += "contract-"
             case JobType.FULL_TIME:
@@ -51,6 +47,9 @@ class URL_Formatter:
                 url += "part-time-"
             case _:
                 url += ""
+
+        if params.graduate == True:
+            url += "graduate-"
 
         match params.remote:
             case Remote.HYBRID:
