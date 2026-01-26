@@ -33,7 +33,7 @@ class URL_Formatter:
 
     @staticmethod
     def reed(job_site:JobSite,params:QueryParams)-> str:
-         # https://www.reed.co.uk/jobs/{job-type}-{work-from-home (if remote)}-{job}-jobs-in-{location}?proximity={radius}&salaryFrom={aalarymin}&salaryTo={salarymax}  
+        # https://www.reed.co.uk/jobs/{job-type}-{work-from-home (if remote)}-{job}-jobs-in-{location}?proximity={radius}&salaryFrom={aalarymin}&salaryTo={salarymax}  
         
         arguments = [params.radius,params.salary_min,params.salary_max]
         url = "https://www.reed.co.uk/jobs/"
