@@ -100,13 +100,10 @@ class Test_URL_Formatter(unittest.TestCase):
         "Moen"       : False,
         "Magtanggol" : 8.0
     }
-
-    def test_space_to_dash(self):
-        #TODO: This
-        pass
+        
     def test_args_have_value(self):
-        #TODO: This
-        pass
+        test_input = []
+        
 
     def test_parse_site(self):
         pass
