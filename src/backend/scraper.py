@@ -5,6 +5,8 @@ from enum import Enum
 # from dataclasses import dataclass
 from selenium import webdriver
 from selenium.webdriver.remote.webdriver import WebDriver
+from selenium.webdriver.chrome.options import Options as default_chrome_options
+# from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from backend.job import JobSite, QueryParams
@@ -17,20 +19,25 @@ class Driver(Enum):
 
 class Scraper:
 
-    def __init__(self,driver_type:Driver):
+    def __init__(self,driver_type:Driver,config_path:str):
         
         self.driver: Optional[WebDriver] = None
         self.config: Optional[dict]      = None
 
+        self.load_config(config_path)
         self.init_driver(driver_type)
 
     def init_driver(self,driver_type:Driver):
-        # Function not tested since its just variable assingment which is handled by external code (selenium)
+        # Function not tested since its selenium handling this, related code to influence it is tested
         match driver_type:
             case Driver.FIREFOX:
                 self.driver = webdriver.Firefox()
+                options = webdriver.FirefoxOptions()
+                
             case Driver.CHROME:
                 self.driver = webdriver.Chrome()
+                options = default_chrome_options
+
 
     def parse_site(self,url:str,params:List[str])-> None:
         pass
