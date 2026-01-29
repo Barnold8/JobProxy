@@ -32,11 +32,11 @@ class Scraper:
         match driver_type:
             case Driver.FIREFOX:
                 self.driver = webdriver.Firefox()
-                options = webdriver.FirefoxOptions()
+                firefox_options = webdriver.FirefoxOptions()
                 
             case Driver.CHROME:
                 self.driver = webdriver.Chrome()
-                options = default_chrome_options
+                chrome_options = default_chrome_options
 
 
     def parse_site(self,url:str,params:List[str])-> None:
@@ -44,7 +44,7 @@ class Scraper:
 
     def load_config(self, path:str) -> None:
 
-        REQUIRED_FIELD_COUNT = 4
+        REQUIRED_FIELD_COUNT = 5
 
         if os.path.getsize(path) <= 0:
             return
