@@ -13,20 +13,29 @@ class Test_URL_Formatter(unittest.TestCase):
         FILES    = [f for f in os.listdir(ABS_PATH) if os.path.isfile(os.path.join(ABS_PATH, f))] # This is also our test_input
         TEST_OBJ = scraper.Scraper(scraper.Driver.CHROME)
 
-        print(f"FILES: {FILES}")
-        test_expected = [
-            {
+        test_expected = {
+            "conf.ini": None,
+            "driver_config0.json": {
                 "driver"            : "chrome",
                 "headless"          : True,
                 "browser_version"   : "stable",
                 "platform_name"     : "any"
-            }
-        ]
+            },
+            "driver_config1.json": {
+                "driver"            : "chrome"
+            },
+            "driver_config2.json": None,
+            "my_config.f": None,
+            "nothing.c": None,
+            "rewritein.rs": None,
+            "shady.sh": None,
+        }
 
-        for index, file in enumerate(FILES):
+        for  file in FILES:
+            # print(f"Testing {file}")
             self.assertEqual(
                 TEST_OBJ.load_config(file),
-                test_expected[index]
+                test_expected[file]
             )
 
 
