@@ -13,7 +13,7 @@ class Test_URL_Formatter(unittest.TestCase):
         FILES    = [f for f in os.listdir(ABS_PATH) if os.path.isfile(os.path.join(ABS_PATH, f))] # This is also our test_input
         TEST_OBJ = scraper.Scraper(scraper.Driver.CHROME)
 
-        
+        print(f"FILES: {FILES}")
         test_expected = [
             {
                 "driver"            : "chrome",
@@ -23,9 +23,9 @@ class Test_URL_Formatter(unittest.TestCase):
             }
         ]
 
-        for index in (FILES):
+        for index, file in enumerate(FILES):
             self.assertEqual(
-                TEST_OBJ.load_config(FILES[index]),
+                TEST_OBJ.load_config(file),
                 test_expected[index]
             )
 
