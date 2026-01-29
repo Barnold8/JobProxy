@@ -10,10 +10,11 @@ class Test_URL_Formatter(unittest.TestCase):
         
         BASE_DIR = 'assets/tests/test_configs'
         ABS_PATH = os.path.join(os.getcwd(),BASE_DIR)
-        FILES    = [f for f in os.listdir(ABS_PATH) if os.path.isfile(os.path.join(ABS_PATH, f))] # This is also our test_input
+        FILES    = [os.path.join(os.getcwd(),f"{BASE_DIR}/{f}") for f in os.listdir(ABS_PATH) if os.path.isfile(os.path.join(ABS_PATH, f))] # This is also our test_input
         TEST_OBJ = scraper.Scraper(scraper.Driver.CHROME)
 
         test_expected = {
+            "driver_config.bat" : None,
             "conf.ini": None,
             "driver_config0.json": {
                 "driver"            : "chrome",
@@ -22,9 +23,20 @@ class Test_URL_Formatter(unittest.TestCase):
                 "platform_name"     : "any"
             },
             "driver_config1.json": {
-                "driver"            : "chrome"
+                "driver"            : "chrome",
+                "headless"          : None,
+                "browser_version"   : "stable",
+                "platform_name"     : "any"
             },
-            "driver_config2.json": None,
+            "driver_config2.json": {
+                "driver"            : None,
+                "headless"          : None,
+                "browser_version"   : None,
+                "platform_name"     : None
+            },
+            "driver_config3.json": None,
+            "driver_config4.json": None,
+            "driver_config5.json": None,
             "my_config.f": None,
             "nothing.c": None,
             "rewritein.rs": None,
@@ -32,11 +44,16 @@ class Test_URL_Formatter(unittest.TestCase):
         }
 
         for  file in FILES:
-            # print(f"Testing {file}")
-            TEST_OBJ.load_config(file),
+            
+            TEST_OBJ.config = None # clear object config
+            TEST_OBJ.load_config(file)
+            key = file.split("/")[-1]
+            
+            print(f"Testing {key}")
+
             self.assertEqual(
                 TEST_OBJ.config,
-                test_expected[file]
+                test_expected[key]
             )
 
 
