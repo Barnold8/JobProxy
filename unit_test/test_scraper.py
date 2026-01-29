@@ -5,7 +5,7 @@ import backend.job as job
 import os
 import types
 
-class Test_URL_Formatter(unittest.TestCase):
+class Test_Scraper(unittest.TestCase):
 
     def test_load_config(self):
         
