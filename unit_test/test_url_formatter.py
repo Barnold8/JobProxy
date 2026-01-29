@@ -102,8 +102,246 @@ class Test_URL_Formatter(unittest.TestCase):
     }
         
     def test_args_have_value(self):
-        test_input = []
-        
+        test_input = {
+            'Test1': scraper.QueryParams(
+                "Location",
+                "Job Title",
+                25,
+                1 ,
+                10 ,
+                job.JobType.FIXED_CONTRACT,
+                "mm",
+                job.Remote.REMOTE,
+                False
+            ),
+            'Test2': scraper.QueryParams(
+                None,
+                None,
+                None,
+                None ,
+                None ,
+                job.JobType.FIXED_CONTRACT,
+                None,
+                None,
+                None
+            ),
+            'Test3': scraper.QueryParams(
+                "Location",
+                "Job Title",
+                25,
+                1 ,
+                10 ,
+                job.JobType.FIXED_CONTRACT,
+                "mm",
+                None,
+                None
+            ),
+            'Test4': scraper.QueryParams(
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None
+            ),
+            'Test5': scraper.QueryParams(
+                "Location",
+                "Job Title",
+                25,
+                1 ,
+                10 ,
+                None,
+                None,
+                None,
+                None
+            ),
+            'Test6': scraper.QueryParams(
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None
+            ),
+            'Test7': scraper.QueryParams(
+                "Location",
+                "Job Title",
+                25,
+                None ,
+                None ,
+                None,
+                None,
+                None,
+                None
+            ),
+            'Test8': scraper.QueryParams(
+                "Location",
+                "Job Title",
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None
+            ),
+            'Test9': scraper.QueryParams(
+                "Location",
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None
+            ),
+            'Test10': scraper.QueryParams(
+                None,
+                None,
+                None,
+                None ,
+                None ,
+                None,
+                None,
+                None,
+                None
+            ),
+            'Test11': scraper.QueryParams(
+                None,
+                "Job Title",
+                25,
+                None,
+                10 ,
+                None,
+                None,
+                None,
+                None
+            ),
+            'Test12': scraper.QueryParams(
+                None,
+                "Job Title",
+                None,
+                1 ,
+                10 ,
+                None,
+                None,
+                None,
+                None
+            ),
+            'Test13': scraper.QueryParams(
+                "Location",
+                "Job Title",
+                25,
+                1 ,
+                10 ,
+                None,
+                None,
+                None,
+                True
+            ),
+            'Test14': scraper.QueryParams(
+                "Location",
+                None,
+                None,
+                1 ,
+                10 ,
+                job.JobType.FIXED_CONTRACT,
+                None,
+                None,
+                None
+            ),
+            'Test15': scraper.QueryParams(
+                "Location",
+                None,
+                25,
+                1 ,
+                10 ,
+                None,
+                None,
+                None,
+                None
+            ),
+            'Test16': scraper.QueryParams(
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None,
+                None
+            ),
+            'Test17': scraper.QueryParams(
+                None,
+                None,
+                25,
+                1 ,
+                10 ,
+                None,
+                None,
+                None,
+                None
+            ),
+            'Test18': scraper.QueryParams(
+                None,
+                None,
+                None,
+                None ,
+                None,
+                None,
+                None,
+                None,
+                None
+            ),
+            'Test19': scraper.QueryParams(
+                None,
+                None,
+                None,
+                1 ,
+                None ,
+                None,
+                None,
+                None,
+                None
+            ),
+        }
+        test_expected = {
+            "Test1" : True,
+            "Test2" : True,
+            "Test3" : True,
+            "Test4" : False,
+            "Test5" : True,
+            "Test6" : False,
+            "Test7" : True,
+            "Test8" : True,
+            "Test9" : True,
+            "Test10" : False,
+            "Test11" : True,
+            "Test12" : True,
+            "Test13" : True,
+            "Test14" : True,
+            "Test15" : True,
+            "Test16" : False,
+            "Test17" : True,
+            "Test18" : False,
+            "Test19" : True,
+        }
+
+        for key in test_expected.keys():
+            query_params_as_dict = test_input[key].__dict__
+            args = [x for x in query_params_as_dict.values()]
+            self.assertEqual(
+                test_expected[key],
+                url_formatter.args_have_value(args)
+            )
 
     def test_parse_site(self):
         pass
