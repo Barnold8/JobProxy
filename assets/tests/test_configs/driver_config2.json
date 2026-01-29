@@ -2,5 +2,6 @@
     "driver"            : null,
     "headless"          : null,
     "browser_version"   : null,
-    "platform_name"     : null
+    "platform_name"     : null,
+    "timeout_timer"     : null
 }

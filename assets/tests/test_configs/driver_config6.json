@@ -1,7 +1,7 @@
 {
     "driver"            : "chrome",
-    "headless"          : null,
+    "headless"          : true,
     "browser_version"   : "stable",
     "platform_name"     : "any",
-    "timeout_timer"     : 1000
+    "timeout_timer"     : -100
 }
