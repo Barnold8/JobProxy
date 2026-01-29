@@ -1,3 +1,5 @@
+import json
+import os
 from typing import List, Any
 from enum import Enum
 # from dataclasses import dataclass
@@ -16,7 +18,10 @@ class Driver(Enum):
 class Scraper:
 
     def __init__(self,driver_type:Driver):
+        
         self.driver: Optional[WebDriver] = None
+        self.config: Optional[dict]      = None
+
         self.init_driver(driver_type)
 
     def init_driver(self,driver_type:Driver):
@@ -31,7 +36,18 @@ class Scraper:
         pass
 
     def load_config(self, path:str) -> None:
-        pass
+
+        if os.path.getsize(path) <= 0:
+            return
+        try:
+            with open(path,"r") as file:
+                data = json.load(file)
+                if len(data) < 4: # max required fields for a config file to be valid
+                    return 
+                self.config = data
+        except FileNotFoundError as fnfe:
+            print(f"Error while trying to open {path}\n\n\t{fnfe}")
+
 
     @staticmethod
     def format_site_url(job_site:JobSite,params:QueryParams)-> str:
