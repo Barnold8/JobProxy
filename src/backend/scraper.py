@@ -27,7 +27,10 @@ class Scraper:
             case Driver.CHROME:
                 self.driver = webdriver.Chrome()
 
-    def parse_site(self,url:str,params:List[str])-> None: # todo: add Job type
+    def parse_site(self,url:str,params:List[str])-> None:
+        pass
+
+    def load_config(self, path:str) -> None:
         pass
 
     @staticmethod
