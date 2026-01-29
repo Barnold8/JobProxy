@@ -37,12 +37,14 @@ class Scraper:
 
     def load_config(self, path:str) -> None:
 
+        REQUIRED_FIELD_COUNT = 4
+
         if os.path.getsize(path) <= 0:
             return
         try:
             with open(path,"r") as file:
                 data = json.load(file)
-                if len(data) < 4: # max required fields for a config file to be valid
+                if len(data) < REQUIRED_FIELD_COUNT: # max required fields for a config file to be valid
                     return 
                 self.config = data
         except FileNotFoundError as fnfe:
