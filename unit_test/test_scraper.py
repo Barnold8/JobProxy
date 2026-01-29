@@ -33,8 +33,9 @@ class Test_URL_Formatter(unittest.TestCase):
 
         for  file in FILES:
             # print(f"Testing {file}")
+            TEST_OBJ.load_config(file),
             self.assertEqual(
-                TEST_OBJ.load_config(file),
+                TEST_OBJ.config,
                 test_expected[file]
             )
 

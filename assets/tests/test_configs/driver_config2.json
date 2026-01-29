@@ -1,3 +1,6 @@
 {
-    
+    "driver"            : null,
+    "headless"          : null,
+    "browser_version"   : null,
+    "platform_name"     : null
 }
