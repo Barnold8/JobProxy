@@ -1,0 +1,6 @@
+{
+    "driver"            : "chrome",
+    "headless"          : true,
+    "browser_version"   : "stable",
+    "platform_name"     : "any"
+}
