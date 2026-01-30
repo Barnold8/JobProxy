@@ -7,6 +7,9 @@ import types
 
 class Test_Scraper(unittest.TestCase):
 
+    def test_is_version_number(self):
+        pass
+
     def test_verify_config(self):
         pass
 
