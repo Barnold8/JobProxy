@@ -13,6 +13,77 @@ from backend.job import JobSite, QueryParams
 from backend import url_formatter
 from typing import Optional
 
+
+def is_version_number(version_string:str)->bool:
+
+    digits = version_string.split(".")
+
+    for num in digits:
+        if num.isnumeric() == False:
+            return False
+    else:
+        return True
+
+
+def verify_config(config: dict) -> dict:
+    if config is None:
+        return None
+
+    config_copy = dict(config) 
+
+    rules = {
+        "driver": {
+            "default": "chrome",
+            "allowed": {"chrome", "firefox"},
+            "coerce": lambda v: v.lower() if isinstance(v, str) else v,
+        },
+        "headless": {
+            "default": True,
+            "coerce": lambda v: (
+                v.lower() == "true" if isinstance(v, str) else v
+            ),
+            "validate": lambda v: isinstance(v, bool),
+        },
+        "browser_version": {
+            "default": "stable",
+            "validate": lambda v: (
+                isinstance(v, str)
+                and (v.lower() == "stable" or is_version_number(v))
+            ),
+        },
+        "platform_name": {
+            "default": "any",
+            "allowed": {"any"},
+            "coerce": lambda v: v.lower() if isinstance(v, str) else v,
+        },
+        "timeout_timer": {
+            "default": 5000,
+            "validate": lambda v: isinstance(v, int) and v >= 0,
+        },
+    }
+
+    for key, rule in rules.items():
+        value = config_copy.get(key)
+
+        if value is None:
+            config_copy[key] = rule["default"]
+            continue
+
+        if "coerce" in rule:
+            value = rule["coerce"](value)
+
+        if "allowed" in rule and value not in rule["allowed"]:
+            config_copy[key] = rule["default"]
+            continue
+
+        if "validate" in rule and not rule["validate"](value):
+            config_copy[key] = rule["default"]
+            continue
+
+        config_copy[key] = value
+
+    return config_copy
+
 class Driver(Enum):
     FIREFOX = 1
     CHROME = 2
@@ -45,15 +116,20 @@ class Scraper:
     def load_config(self, path:str) -> None:
 
         REQUIRED_FIELD_COUNT = 5
-
-        if os.path.getsize(path) <= 0:
+        
+        if os.path.getsize(path) <= 0 or path.split(".")[-1].lower() != "json":
             return
         try:
             with open(path,"r") as file:
+                
                 data = json.load(file)
+
                 if len(data) < REQUIRED_FIELD_COUNT: # max required fields for a config file to be valid
                     return 
+                data = verify_config(data)
+
                 self.config = data
+
         except FileNotFoundError as fnfe:
             print(f"Error while trying to open {path}\n\n\t{fnfe}")
 
