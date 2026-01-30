@@ -7,6 +7,9 @@ import types
 
 class Test_Scraper(unittest.TestCase):
 
+    def test_verify_config(self):
+        pass
+
     def test_load_config(self):
         
         BASE_DIR = 'assets/tests/test_configs'
@@ -26,17 +29,17 @@ class Test_Scraper(unittest.TestCase):
             },
             "driver_config1.json": {
                 "driver"            : "chrome",
-                "headless"          : None,
+                "headless"          : True,
                 "browser_version"   : "stable",
                 "platform_name"     : "any",
                 "timeout_timer"     : 1000
             },
             "driver_config2.json": {
-                "driver"            : None,
-                "headless"          : None,
-                "browser_version"   : None,
-                "platform_name"     : None,
-                "timeout_timer"     : None
+                "driver"            : "chrome",
+                "headless"          : True,
+                "browser_version"   : "stable",
+                "platform_name"     : "any",
+                "timeout_timer"     : 5000
             },
             "driver_config3.json"   : None,
             "driver_config4.json"   : None,
@@ -52,10 +55,12 @@ class Test_Scraper(unittest.TestCase):
         for  file in FILES:
             
             TEST_OBJ.config = None # clear object config
+            print(f"Loading {file}")
             TEST_OBJ.load_config(file)
             key = file.split("/")[-1]
-            
             print(f"Testing {key}")
+            
+            
 
             self.assertEqual(
                 TEST_OBJ.config,
