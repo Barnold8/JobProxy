@@ -44,8 +44,20 @@ class Test_Scraper(unittest.TestCase):
             "driver_config3.json"   : None,
             "driver_config4.json"   : None,
             "driver_config5.json"   : None,
-            "driver_config6.json"   : None,
-            "driver_config7.json"   : None,
+            "driver_config6.json"   : {
+                "driver"            : "chrome",
+                "headless"          : True,
+                "browser_version"   : "stable",
+                "platform_name"     : "any",
+                "timeout_timer"     : 5000
+            },
+            "driver_config7.json"   : {
+                "driver"            : "chrome",
+                "headless"          : True,
+                "browser_version"   : "stable",
+                "platform_name"     : "any",
+                "timeout_timer"     : 5000
+            },
             "my_config.f"           : None,
             "nothing.c"             : None,
             "rewritein.rs"          : None,
