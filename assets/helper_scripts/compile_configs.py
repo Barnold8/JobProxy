@@ -15,6 +15,7 @@ for file_name in FILES:
         with open(file_name,"r") as file:
             contents = file.read()
             contents = contents.replace("true","True") # Just to match python syntax
+            contents = contents.replace("null","None")
             if len(contents) == 0 :
                 print(f"\"{file_name_wo_path} : {"{}"}")
             else:
