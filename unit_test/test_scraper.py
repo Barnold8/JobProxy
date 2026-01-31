@@ -7,7 +7,7 @@ import types
 
 class Test_Scraper(unittest.TestCase):
 
-    def test_is_version_number(self): # TODO: THIS
+    def test_is_version_number(self):
         test_input = { # generated using assets/helper_scripts/generate_version_numbers.py
             "Test0": "__-__---__--.__-__---__--.invalid",
             "Test1": "2.3.6",
@@ -62,7 +62,126 @@ class Test_Scraper(unittest.TestCase):
             )
 
     def test_verify_config(self): # TODO: THIS
-        pass
+
+        BASE_DIR = 'assets/tests/test_configs'
+        ABS_PATH = os.path.join(os.getcwd(),BASE_DIR)
+        FILES    = [os.path.join(os.getcwd(),f"{BASE_DIR}/{f}") for f in os.listdir(ABS_PATH) if os.path.isfile(os.path.join(ABS_PATH, f))] # This is also our test_input
+        TEST_OBJ = object.__new__(scraper.Scraper)
+
+        test_input = {
+            "driver_config0.json" : {
+                "driver"            : "chrome",
+                "headless"          : True,
+                "browser_version"   : "stable",
+                "platform_name"     : "any",
+                "timeout_timer"     : 5000
+            },
+            "driver_config1.json" : {
+                "driver"            : "chrome",
+                "headless"          : None,
+                "browser_version"   : "stable",
+                "platform_name"     : "any",
+                "timeout_timer"     : 1000
+            },
+            "driver_config2.json" : {
+                "driver"            : None,
+                "headless"          : None,
+                "browser_version"   : None,
+                "platform_name"     : None,
+                "timeout_timer"     : None
+            },
+            "driver_config3.json" : {
+                "driver"            : "chrome"
+            },
+            "driver_config4.json" : {},
+            "driver_config5.json" : {
+                "driver"            : "chrome",
+                "headless"          : True,
+                "browser_version"   : "stable"
+            },
+            "driver_config6.json" : {
+                "driver"            : "chrome",
+                "headless"          : True,
+                "browser_version"   : "stable",
+                "platform_name"     : "any",
+                "timeout_timer"     : -100
+            },
+            "driver_config7.json" : {
+                "driver"            : "chrome",
+                "headless"          : "True",
+                "browser_version"   : "stable",
+                "platform_name"     : "any",
+                "timeout_timer"     : -100
+            },
+        }
+
+        test_expected = {
+            "driver_config0.json" : {
+                "driver"            : "chrome",
+                "headless"          : True,
+                "browser_version"   : "stable",
+                "platform_name"     : "any",
+                "timeout_timer"     : 5000
+            },
+            "driver_config1.json" : {
+                "driver"            : "chrome",
+                "headless"          : True,
+                "browser_version"   : "stable",
+                "platform_name"     : "any",
+                "timeout_timer"     : 1000
+            },
+            "driver_config2.json" : {
+                "driver"            : "chrome",
+                "headless"          : True,
+                "browser_version"   : "stable",
+                "platform_name"     : "any",
+                "timeout_timer"     : 5000
+            },
+            "driver_config3.json" : {
+                "driver"            : "chrome",
+                "headless"          : True,
+                "browser_version"   : "stable",
+                "platform_name"     : "any",
+                "timeout_timer"     : 5000
+            },
+            "driver_config4.json" : {  
+                "driver"            : "chrome",
+                "headless"          : True,
+                "browser_version"   : "stable",
+                "platform_name"     : "any",
+                "timeout_timer"     : 5000
+                },
+            "driver_config5.json" :  {  
+                "driver"            : "chrome",
+                "headless"          : True,
+                "browser_version"   : "stable",
+                "platform_name"     : "any",
+                "timeout_timer"     : 5000
+                },
+            "driver_config6.json" : {
+                "driver"            : "chrome",
+                "headless"          : True,
+                "browser_version"   : "stable",
+                "platform_name"     : "any",
+                "timeout_timer"     : 5000
+            },
+            "driver_config7.json" : {
+                "driver"            : "chrome",
+                "headless"          : True,
+                "browser_version"   : "stable",
+                "platform_name"     : "any",
+                "timeout_timer"     : 5000
+            },
+        }
+
+        for key in test_input.keys():
+
+            TEST_OBJ.config = None # clear previous config
+            TEST_OBJ.verify_config(test_input[key])
+            self.assertEqual(
+                TEST_OBJ.config,
+                test_expected[key]
+            )
 
     def test_load_config(self):
         
@@ -126,8 +245,6 @@ class Test_Scraper(unittest.TestCase):
             key = file.split("/")[-1]
             print(f"Testing {key}")
             
-            
-
             self.assertEqual(
                 TEST_OBJ.config,
                 test_expected[key]
