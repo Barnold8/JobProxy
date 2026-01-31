@@ -7,10 +7,61 @@ import types
 
 class Test_Scraper(unittest.TestCase):
 
-    def test_is_version_number(self):
-        pass
+    def test_is_version_number(self): # TODO: THIS
+        test_input = { # generated using assets/helper_scripts/generate_version_numbers.py
+            "Test0": "__-__---__--.__-__---__--.invalid",
+            "Test1": "2.3.6",
+            "Test2": "4.6.7",
+            "Test3": "6.8.9",
+            "Test4": "6.2.2",
+            "Test5": "-3.-8.asdmkasdmasd",
+            "Test6": "2.9.2",
+            "Test7": "4.2.6",
+            "Test8": "2.9.7",
+            "Test9": "9.4.5",
+            "Test10": "asdmkasdmasd.-3.-2",
+            "Test11": "3.1.5",
+            "Test12": "9.4.8",
+            "Test13": "4.2.4",
+            "Test14": "1.1.2",
+            "Test15": "\n\n\n.-3.",
+            "Test16": "8.3.5",
+            "Test17": "-7.asdmkasdmasd.asdmkasdmasd",
+            "Test18": "-7.__-__---__--.__-__---__--",
+            "Test19": "9.9.4",
+        }
 
-    def test_verify_config(self):
+        test_expected = { 
+            "Test0": False,
+            "Test1": True,
+            "Test2": True,
+            "Test3": True,
+            "Test4": True,
+            "Test5": False,
+            "Test6": True,
+            "Test7": True,
+            "Test8": True,
+            "Test9": True,
+            "Test10": False,
+            "Test11": True,
+            "Test12": True,
+            "Test13": True,
+            "Test14": True,
+            "Test15": False,
+            "Test16": True,
+            "Test17": False,
+            "Test18": False,
+            "Test19": True,
+        }
+
+        for key in test_input.keys():
+
+            self.assertEqual(
+                scraper.is_version_number(test_input[key]),
+                test_expected[key]
+            )
+
+    def test_verify_config(self): # TODO: THIS
         pass
 
     def test_load_config(self):
