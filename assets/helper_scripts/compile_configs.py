@@ -17,7 +17,7 @@ for file_name in FILES:
             contents = contents.replace("true","True") # Just to match python syntax
             contents = contents.replace("null","None")
             if len(contents) == 0 :
-                print(f"\"{file_name_wo_path} : {"{}"}")
+                print(f"\"{file_name_wo_path}\" : {"{}"},")
             else:
                 print(f"\"{file_name_wo_path}\" : {contents},")
         # print(f"\"Test{index}\" : {contents},")   
