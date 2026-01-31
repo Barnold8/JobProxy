@@ -53,7 +53,7 @@ class Scraper:
     def parse_site(self,url:str,params:List[str])-> None:
         pass
 
-    def verify_config(self,config: dict) -> dict:
+    def verify_config(self,config: dict):
         if config is None:
             self.config = None
 
