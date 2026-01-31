@@ -61,11 +61,8 @@ class Test_Scraper(unittest.TestCase):
                 test_expected[key]
             )
 
-    def test_verify_config(self): # TODO: THIS
+    def test_verify_config(self):
 
-        BASE_DIR = 'assets/tests/test_configs'
-        ABS_PATH = os.path.join(os.getcwd(),BASE_DIR)
-        FILES    = [os.path.join(os.getcwd(),f"{BASE_DIR}/{f}") for f in os.listdir(ABS_PATH) if os.path.isfile(os.path.join(ABS_PATH, f))] # This is also our test_input
         TEST_OBJ = object.__new__(scraper.Scraper)
 
         test_input = {
