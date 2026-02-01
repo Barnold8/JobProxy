@@ -14,6 +14,7 @@ from backend import url_formatter
 from typing import Optional
 
 
+
 def is_version_number(version_string:str)->bool:
 
     digits = version_string.split(".")
@@ -30,25 +31,49 @@ class Driver(Enum):
 
 class Scraper:
 
-    def __init__(self,driver_type:Driver,config_path:str):
+    def __init__(self,config_path:str):
         
         self.driver: Optional[WebDriver] = None
         self.config: Optional[dict]      = None
 
         self.load_config(config_path)
-        self.init_driver(driver_type)
+
+        match self.config["driver"]:
+
+            case "chrome":
+                self.init_driver(Driver.CHROME)
+            case "firefox":
+                self.init_driver(Driver.FIREFOX)
+            case _:
+                self.init_driver(Driver.CHROME)
 
     def init_driver(self,driver_type:Driver):
         # Function not tested since its selenium handling this, related code to influence it is tested
         match driver_type:
             case Driver.FIREFOX:
-                self.driver = webdriver.Firefox()
-                firefox_options = webdriver.FirefoxOptions()
-                
-            case Driver.CHROME:
-                self.driver = webdriver.Chrome()
-                chrome_options = default_chrome_options
 
+                firefox_options = self.apply_options(webdriver.FirefoxOptions())
+                self.driver = webdriver.Firefox(options=firefox_options)
+                self.driver.set_page_load_timeout(self.config["timeout_timer"])
+
+            case Driver.CHROME:
+                
+                chrome_options = self.apply_options(default_chrome_options())
+                self.driver = webdriver.Chrome(options=chrome_options)
+                self.driver.set_page_load_timeout(self.config["timeout_timer"])
+                
+    def apply_options(self,options): # not sure if i should test this since its just setting values in selenium codebase
+        options_copy = options
+        # options_copy.platform_name = self.config["platform_name"] # causes crash for firefox driver, might remove
+
+        if self.config["headless"]:
+            if self.config["driver"] == "firefox":
+                options_copy.add_argument("--headless")
+            elif self.config["driver"] == "chrome":
+                options_copy.add_argument("--headless=new")
+        options_copy.browser_version = self.config["browser_version"]
+
+        return options_copy
 
     def parse_site(self,url:str,params:List[str])-> None:
         pass
