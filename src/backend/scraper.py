@@ -165,13 +165,10 @@ class Scraper:
         url  = None
         jobs = []
         
-        # 1.1format site URL with params  ✅ 
-    
-        # 1.2 detect what jobsite it is to format correctly using JobSite enum ✅ 
         if job_site_enum == None:
             return None
         
-        match job_site_enum: # could make a dictionary for this and index jobsite enum with string key - could be problematic if key doesnt exist,
+        match job_site_enum:
             case JobSite.INDEED:
                 url = URL_Formatter.format_url(job_site_enum,params)
             case JobSite.REED:
