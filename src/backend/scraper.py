@@ -10,10 +10,8 @@ from selenium.webdriver.chrome.options import Options as default_chrome_options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from backend.job import JobSite, QueryParams
-from backend import url_formatter
+from backend.url_formatter import URL_Formatter
 from typing import Optional
-
-
 
 def is_version_number(version_string:str)->bool:
 
@@ -153,9 +151,22 @@ class Scraper:
 
         return options_copy
 
-    def parse_site(self,url:str,params:List[str])-> None:
-        pass
+    def parse_site(self,job_site:str,params:List[str])-> None:
+
+        # 1. format site URL with params  ✅ 
+        
+        # 1.1 detect what jobsite it is to format correctly using JobSite enum
+
+        match job_site.lower(): # could make a dictionary for this and index jobsite enum with string key - could be problematic if key doesnt exist,
+            case "indeed":
+                URL_Formatter.format_url(JobSite.INDEED)
+            case "reed":
+                pass
+        
+        # go to web address
+
+        # grab relevant job info for each displayed job
 
     @staticmethod
     def format_site_url(job_site:JobSite,params:QueryParams)-> str:
-        return url_formatter.URL_Formatter.format_url(job_site,params)
+        return URL_Formatter.format_url(job_site,params)
