@@ -159,15 +159,18 @@ class Scraper:
             "indeed": JobSite.INDEED,
             "reed"  : JobSite.REED
         }
-
+        
+        # 1 convert string to enum ✅ 
         job_site_enum = sites[job_site] if job_site.lower() in sites.keys() else None 
         url  = None
         jobs = []
-        # 1. format site URL with params  ✅ 
         
-        # 1.1 convert string to enum 
+        # 1.1format site URL with params  ✅ 
+    
         # 1.2 detect what jobsite it is to format correctly using JobSite enum ✅ 
-
+        if job_site_enum == None:
+            return None
+        
         match job_site_enum: # could make a dictionary for this and index jobsite enum with string key - could be problematic if key doesnt exist,
             case JobSite.INDEED:
                 url = URL_Formatter.format_url(job_site_enum,params)
