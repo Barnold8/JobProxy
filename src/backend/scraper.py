@@ -151,21 +151,25 @@ class Scraper:
 
         return options_copy
 
-    def parse_site(self,job_site:str,params:List[str])-> None:
+    def parse_site(self,job_site:str,params:List[str])-> None: # Need to return some object/list of objects
 
         # 1. format site URL with params  ✅ 
         
-        # 1.1 detect what jobsite it is to format correctly using JobSite enum
+        # 1.1 detect what jobsite it is to format correctly using JobSite enum ✅ 
 
         match job_site.lower(): # could make a dictionary for this and index jobsite enum with string key - could be problematic if key doesnt exist,
             case "indeed":
-                URL_Formatter.format_url(JobSite.INDEED)
+                URL_Formatter.format_url(JobSite.INDEED,params)
             case "reed":
-                pass
+                URL_Formatter.format_url(JobSite.REED,params)
+            case _:
+                return None
         
-        # go to web address
-
-        # grab relevant job info for each displayed job
+        # 2.  go to web address
+        # 2.1 grab relevant job info for each displayed job on a page
+        # 2.2 navigate to "next" page and grab jobs to n pages (n could be predetermined amount of pages)
+        
+        # 3. return specific data structure
 
     @staticmethod
     def format_site_url(job_site:JobSite,params:QueryParams)-> str:
