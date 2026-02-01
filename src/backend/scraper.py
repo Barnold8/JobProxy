@@ -62,22 +62,6 @@ class Scraper:
                 self.driver = webdriver.Chrome(options=chrome_options)
                 self.driver.set_page_load_timeout(self.config["timeout_timer"])
                 
-    def apply_options(self,options): # not sure if i should test this since its just setting values in selenium codebase
-        options_copy = options
-        # options_copy.platform_name = self.config["platform_name"] # causes crash for firefox driver, might remove
-
-        if self.config["headless"]:
-            if self.config["driver"] == "firefox":
-                options_copy.add_argument("--headless")
-            elif self.config["driver"] == "chrome":
-                options_copy.add_argument("--headless=new")
-        options_copy.browser_version = self.config["browser_version"]
-
-        return options_copy
-
-    def parse_site(self,url:str,params:List[str])-> None:
-        pass
-
     def verify_config(self,config: dict):
         if config is None:
             self.config = None
@@ -156,6 +140,21 @@ class Scraper:
         except FileNotFoundError as fnfe:
             print(f"Error while trying to open {path}\n\n\t{fnfe}")
 
+    def apply_options(self,options): # not sure if i should test this since its just setting values in selenium codebase
+        options_copy = options
+        # options_copy.platform_name = self.config["platform_name"] # causes crash for firefox driver, might remove
+
+        if self.config["headless"]:
+            if self.config["driver"] == "firefox":
+                options_copy.add_argument("--headless")
+            elif self.config["driver"] == "chrome":
+                options_copy.add_argument("--headless=new")
+        options_copy.browser_version = self.config["browser_version"]
+
+        return options_copy
+
+    def parse_site(self,url:str,params:List[str])-> None:
+        pass
 
     @staticmethod
     def format_site_url(job_site:JobSite,params:QueryParams)-> str:
