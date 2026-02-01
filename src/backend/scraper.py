@@ -154,29 +154,36 @@ class Scraper:
         return options_copy
 
     def parse_site(self,job_site:str,params:QueryParams)-> None: # Need to return some object/list of objects
+        
+        sites = {
+            "indeed": JobSite.INDEED,
+            "reed"  : JobSite.REED
+        }
+
+        job_site_enum = sites[job_site] if job_site.lower() in sites.keys() else None 
         url  = None
         jobs = []
         # 1. format site URL with params  ✅ 
         
-        # 1.1 detect what jobsite it is to format correctly using JobSite enum ✅ 
+        # 1.1 convert string to enum 
+        # 1.2 detect what jobsite it is to format correctly using JobSite enum ✅ 
 
-        match job_site.lower(): # could make a dictionary for this and index jobsite enum with string key - could be problematic if key doesnt exist,
-            case "indeed":
-                url = URL_Formatter.format_url(JobSite.INDEED,params)
-            case "reed":
-                url = URL_Formatter.format_url(JobSite.REED,params)
+        match job_site_enum: # could make a dictionary for this and index jobsite enum with string key - could be problematic if key doesnt exist,
+            case JobSite.INDEED:
+                url = URL_Formatter.format_url(job_site_enum,params)
+            case JobSite.REED:
+                url = URL_Formatter.format_url(job_site_enum,params)
             case _:
                 return None
         
-        # 2.  go to web address
+        # 2.  go to web address ✅ 
         if url != None:
+            # 2.1 grab relevant job info for each displayed job on a page
+            # 2.2 navigate to "next" page and grab jobs to n pages (n could be predetermined amount of pages)
+            # 3. return specific data structure
             self.driver.get(url)
-
             pass
-        # 2.1 grab relevant job info for each displayed job on a page
-        # 2.2 navigate to "next" page and grab jobs to n pages (n could be predetermined amount of pages)
-        
-        # 3. return specific data structure
+
 
     @staticmethod
     def format_site_url(job_site:JobSite,params:QueryParams)-> str:

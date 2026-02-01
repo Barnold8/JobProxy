@@ -29,6 +29,7 @@ class URL_Formatter:
 
     @staticmethod
     def indeed(job_site:JobSite,params:QueryParams)-> str:
+        print(params)
         return f"https://{params.locale}.indeed.com/jobs?q={params.job_title}&l={params.location}&radius={params.radius}&from=searchOnDesktopSerp"
 
     @staticmethod
