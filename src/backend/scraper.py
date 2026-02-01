@@ -147,25 +147,32 @@ class Scraper:
                 options_copy.add_argument("--headless")
             elif self.config["driver"] == "chrome":
                 options_copy.add_argument("--headless=new")
+
+        options_copy.add_experimental_option("detach", True) 
         options_copy.browser_version = self.config["browser_version"]
 
         return options_copy
 
-    def parse_site(self,job_site:str,params:List[str])-> None: # Need to return some object/list of objects
-
+    def parse_site(self,job_site:str,params:QueryParams)-> None: # Need to return some object/list of objects
+        url  = None
+        jobs = []
         # 1. format site URL with params  ✅ 
         
         # 1.1 detect what jobsite it is to format correctly using JobSite enum ✅ 
 
         match job_site.lower(): # could make a dictionary for this and index jobsite enum with string key - could be problematic if key doesnt exist,
             case "indeed":
-                URL_Formatter.format_url(JobSite.INDEED,params)
+                url = URL_Formatter.format_url(JobSite.INDEED,params)
             case "reed":
-                URL_Formatter.format_url(JobSite.REED,params)
+                url = URL_Formatter.format_url(JobSite.REED,params)
             case _:
                 return None
         
         # 2.  go to web address
+        if url != None:
+            self.driver.get(url)
+
+            pass
         # 2.1 grab relevant job info for each displayed job on a page
         # 2.2 navigate to "next" page and grab jobs to n pages (n could be predetermined amount of pages)
         
