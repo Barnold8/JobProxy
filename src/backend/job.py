@@ -23,9 +23,28 @@ class JobSite(Enum):
     REED   = 2
 
 @dataclass
+class CSS_SELECTOR:
+
+    inner : str
+
+@dataclass
 class JobSiteDetails:
 
-    pass
+    job_card_id   : str
+    job_title_id  : str
+    job_salary    : str
+    job_location  : str
+    job_poster    : str
+    job_posted_on : str
+
+@dataclass
+class Job:
+    # Use CSS selector to grab custom attributes and not classnames
+    job_title    : str | CSS_SELECTOR 
+    job_salary   : str | CSS_SELECTOR 
+    job_location : str | CSS_SELECTOR 
+    job_time     : str | CSS_SELECTOR 
+
 
 @dataclass
 class QueryParams:
@@ -38,3 +57,15 @@ class QueryParams:
     locale     : str
     remote     : Remote
     graduate   : bool
+
+# Need a method to load these on boot and not hardcode values, allows user to change IDs/ClassNames/CSS_Selector when needed and doesnt need to change codebase
+REED_INSTANCE = JobSiteDetails(
+
+    job_card_id   = "index-module_jobCard__body__vWzBf",
+    job_title_id  = "index-module_jobResultHeading__title__r7Yqg",
+    job_salary    = "data-qa=\"job-metadata-salary\"",
+    job_location  = None,
+    job_poster    = None,
+    job_posted_on = None
+
+)
