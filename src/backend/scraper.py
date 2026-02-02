@@ -6,12 +6,12 @@ from enum import Enum
 from selenium import webdriver
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.chrome.options import Options as default_chrome_options
-# from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from backend.job import JobSite, QueryParams
+from backend.job import JobSite, QueryParams,Job, REED_INSTANCE
 from backend.url_formatter import URL_Formatter
 from typing import Optional
+
 
 def is_version_number(version_string:str)->bool:
 
@@ -135,7 +135,7 @@ class Scraper:
 
                 self.verify_config(data)
 
-        except FileNotFoundError as fnfe:
+        except FileNotFoundError as fnfe: 
             print(f"Error while trying to open {path}\n\n\t{fnfe}")
 
     def apply_options(self,options): # not sure if i should test this since its just setting values in selenium codebase
@@ -152,6 +152,37 @@ class Scraper:
         options_copy.browser_version = self.config["browser_version"]
 
         return options_copy
+
+    def delegate_job_parsing(self,url:str,ref:JobSite):
+
+        reference_information = {
+            JobSite.INDEED : None,
+            JobSite.REED   : REED_INSTANCE
+        }
+        reference = reference_information[ref]
+        # 1. take in URL and go to it ✅ 
+
+        self.driver.get(url)
+        cards = self.driver.find_elements(By.CLASS_NAME, reference.job_card_id)
+        
+        # 1.2 use job site enum to refrence information on how to get to next page and how to grab jobs
+        for card in cards:
+            try:
+                j = Job(
+                    card.find_element(By.CLASS_NAME,reference.job_title_id),
+                    None,
+                    None,
+                    None,
+                )
+            except Exception as e: # identify error type and catch it
+                print(f"Error: {e}")
+            
+        
+        
+        # 2. 
+            # 2.1 grab relevant job info for each displayed job on a page
+            # 2.2 navigate to "next" page and grab jobs to n pages (n could be predetermined amount of pages)
+        pass
 
     def parse_site(self,job_site:str,params:QueryParams)-> None: # Need to return some object/list of objects
         
@@ -178,11 +209,11 @@ class Scraper:
         
         # 2.  go to web address ✅ 
         if url != None:
-            # 2.1 grab relevant job info for each displayed job on a page
-            # 2.2 navigate to "next" page and grab jobs to n pages (n could be predetermined amount of pages)
-            # 3. return specific data structure
-            self.driver.get(url)
+
+            self.delegate_job_parsing(url,job_site_enum)
             pass
+
+        return None
 
 
     @staticmethod
