@@ -2,13 +2,13 @@ import json
 import os
 from typing import List, Any
 from enum import Enum
-# from dataclasses import dataclass
 from selenium import webdriver
+from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.chrome.options import Options as default_chrome_options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from backend.job import JobSite, QueryParams,Job, REED_INSTANCE
+from backend.job import JobSite, QueryParams,Job, JobSiteDetails, REED_INSTANCE
 from backend.url_formatter import URL_Formatter
 from typing import Optional
 
@@ -148,13 +148,13 @@ class Scraper:
             elif self.config["driver"] == "chrome":
                 options_copy.add_argument("--headless=new")
 
-        options_copy.add_experimental_option("detach", True) 
+        # options_copy.add_experimental_option("detach", True) # Use for debugging otherwise itll be eating RAM
         options_copy.browser_version = self.config["browser_version"]
 
         return options_copy
 
-    def delegate_job_parsing(self,url:str,ref:JobSite):
-
+        
+    def grab_jobs(self,url:str,ref:JobSiteDetails):
         reference_information = {
             JobSite.INDEED : None,
             JobSite.REED   : REED_INSTANCE
@@ -164,25 +164,23 @@ class Scraper:
 
         self.driver.get(url)
         cards = self.driver.find_elements(By.CLASS_NAME, reference.job_card_id)
-        
+
         # 1.2 use job site enum to refrence information on how to get to next page and how to grab jobs
         for card in cards:
             try:
                 j = Job(
-                    card.find_element(By.CLASS_NAME,reference.job_title_id),
-                    None,
-                    None,
-                    None,
+                    job_title    = card.find_element(By.CSS_SELECTOR,reference.job_title_id), 
+                    job_location = card.find_element(By.CSS_SELECTOR,reference.job_location_id),
+                    job_salary   = card.find_element(By.CSS_SELECTOR,reference.job_salary_id), 
+                    job_time     = card.find_element(By.CSS_SELECTOR,reference.job_time_id), 
                 )
+                print(f"{"-"*32}JOB:\nTitle: {j.job_title.text}")
             except Exception as e: # identify error type and catch it
                 print(f"Error: {e}")
-            
-        
-        
+
         # 2. 
             # 2.1 grab relevant job info for each displayed job on a page
             # 2.2 navigate to "next" page and grab jobs to n pages (n could be predetermined amount of pages)
-        pass
 
     def parse_site(self,job_site:str,params:QueryParams)-> None: # Need to return some object/list of objects
         
@@ -210,7 +208,7 @@ class Scraper:
         # 2.  go to web address ✅ 
         if url != None:
 
-            self.delegate_job_parsing(url,job_site_enum)
+            self.grab_jobs(url,job_site_enum)
             pass
 
         return None
