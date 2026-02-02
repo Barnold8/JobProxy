@@ -24,13 +24,11 @@ class JobSite(Enum):
 
 @dataclass
 class Job:
-    # Use CSS selector to grab custom attributes and not classnames
-    job_card_id      : str
-    job_title_id     : str
-    job_salary_id    : str
-    job_location_id  : str
-    job_poster_id    : str
-    job_posted_on_id : str
+    job_title        : str
+    job_salary       : str
+    job_location     : str
+    job_poster       : str
+    job_posted_on    : str
 
 @dataclass
 class JobSiteDetails:
