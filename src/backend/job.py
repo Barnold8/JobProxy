@@ -17,13 +17,16 @@ class Remote(Enum):
     HYBRID = 2
     OFFICE = 3
 
-@dataclass
-class JobSite:
+class JobSite(Enum):
 
     INDEED = 1
     REED   = 2
 
-    
+@dataclass
+class JobSiteDetails:
+
+    pass
+
 @dataclass
 class QueryParams:
     location   : str
