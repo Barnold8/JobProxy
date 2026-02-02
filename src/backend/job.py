@@ -23,11 +23,6 @@ class JobSite(Enum):
     REED   = 2
 
 @dataclass
-class CSS_SELECTOR:
-
-    inner : str
-
-@dataclass
 class JobSiteDetails:
 
     job_card_id   : str
@@ -40,10 +35,10 @@ class JobSiteDetails:
 @dataclass
 class Job:
     # Use CSS selector to grab custom attributes and not classnames
-    job_title    : str | CSS_SELECTOR 
-    job_salary   : str | CSS_SELECTOR 
-    job_location : str | CSS_SELECTOR 
-    job_time     : str | CSS_SELECTOR 
+    job_title    : str 
+    job_salary   : str 
+    job_location : str 
+    job_time     : str 
 
 
 @dataclass
@@ -62,8 +57,8 @@ class QueryParams:
 REED_INSTANCE = JobSiteDetails(
 
     job_card_id   = "index-module_jobCard__body__vWzBf",
-    job_title_id  = "index-module_jobResultHeading__title__r7Yqg",
-    job_salary    = "data-qa=\"job-metadata-salary\"",
+    job_title_id  = ".index-module_jobResultHeading__title__r7Yqg",
+    job_salary    = "[data-qa=\"job-metadata-salary]\"",
     job_location  = None,
     job_poster    = None,
     job_posted_on = None
