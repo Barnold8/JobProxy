@@ -58,8 +58,8 @@ REED_INSTANCE = JobSiteDetails(
     job_card_id      = ".index-module_jobCard__body__vWzBf",
     job_title_id     = ".index-module_jobResultHeading__title__r7Yqg",
     job_salary_id    = "[data-qa=\"job-metadata-salary]\"",
-    job_location_id  = None,
-    job_poster_id    = None,
-    job_posted_on_id = None
+    job_location_id  = ".index-module_jobCard__body__vWzBf",
+    job_poster_id    = ".index-module_jobCard__body__vWzBf",
+    job_posted_on_id = ".index-module_jobCard__body__vWzBf",
 
 )
