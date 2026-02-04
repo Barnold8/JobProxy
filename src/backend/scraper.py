@@ -167,7 +167,6 @@ class Scraper:
 
         # 1.2 use job site enum to refrence information on how to get to next page and how to grab jobs
         for card in cards:
-            #TODO: Fix the issue finding the "salary" element in reed
             #TODO: Write tests for test_scraper.py and try and use WebElement structure
             with open("test.txt","w") as file:
                 file.write(card.get_attribute('innerHTML'))
@@ -189,8 +188,8 @@ class Scraper:
     Posted by:  {j.job_poster.text}
                 """)
             except Exception as e: # identify error type and catch it
-                # print(f"Error: {e}")
-                print("Error processing job :(")
+                print(f"Error: {e}")
+                
            
         # 2. 
             # 2.1 grab relevant job info for each displayed job on a page
