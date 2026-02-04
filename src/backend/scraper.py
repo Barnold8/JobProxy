@@ -147,7 +147,7 @@ class Scraper:
                 options_copy.add_argument("--headless")
             elif self.config["driver"] == "chrome":
                 options_copy.add_argument("--headless=new")
-
+        options.add_argument("start-maximized")
         # options_copy.add_experimental_option("detach", True) # Use for debugging otherwise itll be eating RAM
         options_copy.browser_version = self.config["browser_version"]
 
@@ -163,21 +163,35 @@ class Scraper:
         # 1. take in URL and go to it ✅ 
 
         self.driver.get(url)
-        cards = self.driver.find_elements(By.CLASS_NAME, reference.job_card_id)
+        cards = self.driver.find_elements(By.CSS_SELECTOR, reference.job_card_id)
 
         # 1.2 use job site enum to refrence information on how to get to next page and how to grab jobs
         for card in cards:
+            #TODO: Fix the issue finding the "salary" element in reed
+            #TODO: Write tests for test_scraper.py and try and use WebElement structure
+            with open("test.txt","w") as file:
+                file.write(card.get_attribute('innerHTML'))
+
             try:
                 j = Job(
-                    job_title    = card.find_element(By.CSS_SELECTOR,reference.job_title_id), 
-                    job_location = card.find_element(By.CSS_SELECTOR,reference.job_location_id),
-                    job_salary   = card.find_element(By.CSS_SELECTOR,reference.job_salary_id), 
-                    job_time     = card.find_element(By.CSS_SELECTOR,reference.job_time_id), 
+                    job_title     = card.find_element(By.CSS_SELECTOR,reference.job_title_id), 
+                    job_location  = card.find_element(By.CSS_SELECTOR,reference.job_location_id),
+                    job_salary    = card.find_element(By.CSS_SELECTOR,reference.job_salary_id),
+                    job_posted_on = card.find_element(By.CSS_SELECTOR,reference.job_title_id),
+                    job_poster    = card.find_element(By.CSS_SELECTOR,reference.job_title_id),
+                    job_href      = card.find_element(By.CSS_SELECTOR,reference.job_title_id)
                 )
-                print(f"{"-"*32}JOB:\nTitle: {j.job_title.text}")
+                print(f"""\t\tJOB\n{"-"*32}
+    Title:      {j.job_title.text}
+    Location:   {j.job_location.text}
+    Salary:     {j.job_salary.text}
+    Posted on:  {j.job_posted_on.text}
+    Posted by:  {j.job_poster.text}
+                """)
             except Exception as e: # identify error type and catch it
-                print(f"Error: {e}")
-
+                # print(f"Error: {e}")
+                print("Error processing job :(")
+           
         # 2. 
             # 2.1 grab relevant job info for each displayed job on a page
             # 2.2 navigate to "next" page and grab jobs to n pages (n could be predetermined amount of pages)
