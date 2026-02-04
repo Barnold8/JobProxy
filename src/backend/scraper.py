@@ -168,10 +168,10 @@ class Scraper:
         # 1.2 use job site enum to refrence information on how to get to next page and how to grab jobs
         for card in cards:
             #TODO: Write tests for test_scraper.py and try and use WebElement structure
-            with open("test.txt","w") as file:
-                file.write(card.get_attribute('innerHTML'))
 
             try:
+            # 2. 
+            # 2.1 grab relevant job info for each displayed job on a page
                 j = Job(
                     job_title     = card.find_element(By.CSS_SELECTOR,reference.job_title_id), 
                     job_location  = card.find_element(By.CSS_SELECTOR,reference.job_location_id),
@@ -191,8 +191,7 @@ class Scraper:
                 print(f"Error: {e}")
                 
            
-        # 2. 
-            # 2.1 grab relevant job info for each displayed job on a page
+
             # 2.2 navigate to "next" page and grab jobs to n pages (n could be predetermined amount of pages)
 
     def parse_site(self,job_site:str,params:QueryParams)-> None: # Need to return some object/list of objects
