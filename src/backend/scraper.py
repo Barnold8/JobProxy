@@ -12,7 +12,6 @@ from backend.job import JobSite, QueryParams,Job, JobSiteDetails, REED_INSTANCE
 from backend.url_formatter import URL_Formatter
 from typing import Optional
 
-
 def is_version_number(version_string:str)->bool:
 
     digits = version_string.split(".")
@@ -152,23 +151,16 @@ class Scraper:
         options_copy.browser_version = self.config["browser_version"]
 
         return options_copy
+         
+    def grab_jobs(self,reference:JobSiteDetails): # Todo: make function recursive to walk through pages on site
 
-        
-    def grab_jobs(self,url:str,ref:JobSiteDetails):
-        reference_information = {
-            JobSite.INDEED : None,
-            JobSite.REED   : REED_INSTANCE
-        }
-        reference = reference_information[ref]
         # 1. take in URL and go to it ✅ 
 
-        self.driver.get(url)
         cards = self.driver.find_elements(By.CSS_SELECTOR, reference.job_card_id)
 
-        # 1.2 use job site enum to refrence information on how to get to next page and how to grab jobs
+        # 1.2 use job site enum to refrence information on how to get to next page and how to grab jobs ✅
         for card in cards:
             #TODO: Write tests for test_scraper.py and try and use WebElement structure
-
             try:
             # 2. 
             # 2.1 grab relevant job info for each displayed job on a page
@@ -190,15 +182,22 @@ class Scraper:
             except Exception as e: # identify error type and catch it
                 print(f"Error: {e}")
                 
-           
-
             # 2.2 navigate to "next" page and grab jobs to n pages (n could be predetermined amount of pages)
 
-    def parse_site(self,job_site:str,params:QueryParams)-> None: # Need to return some object/list of objects
-        
+    def parse_site(self,job_site:str,params:QueryParams,strict:bool = False)-> None: # Need to return some object/list of objects
+        # Make this function do the delegation of what URL to format to and then get url from there as a "root"
+        # This functions MUST filter out job objects to remove duplicates 
+        # This function later down the line could take a boolean to be STRICT to remove any objects that dont strictly correspond to query params
+            # for example, if query_city != found_city, remove job
+                # if distance > query_distance, remove job 
         sites = {
             "indeed": JobSite.INDEED,
             "reed"  : JobSite.REED
+        }
+        
+        reference_information = {
+            JobSite.INDEED : None,
+            JobSite.REED   : REED_INSTANCE
         }
         
         # 1 convert string to enum ✅ 
@@ -212,15 +211,17 @@ class Scraper:
         match job_site_enum:
             case JobSite.INDEED:
                 url = URL_Formatter.format_url(job_site_enum,params)
+                reference = reference_information[job_site_enum]
             case JobSite.REED:
                 url = URL_Formatter.format_url(job_site_enum,params)
+                reference = reference_information[job_site_enum]
             case _:
                 return None
         
         # 2.  go to web address ✅ 
         if url != None:
-
-            self.grab_jobs(url,job_site_enum)
+            self.driver.get(url)
+            jobs = self.grab_jobs(reference)
             pass
 
         return None
