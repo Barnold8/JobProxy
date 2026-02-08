@@ -154,7 +154,7 @@ class Scraper:
          
     def grab_jobs(self,reference:JobSiteDetails): # Todo: make function recursive to walk through pages on site
 
-        # 1. take in URL and go to it ✅ 
+
 
         cards = self.driver.find_elements(By.CSS_SELECTOR, reference.job_card_id)
 
@@ -202,8 +202,9 @@ class Scraper:
         
         # 1 convert string to enum ✅ 
         job_site_enum = sites[job_site] if job_site.lower() in sites.keys() else None 
-        url  = None
-        jobs = []
+        url           = None
+        reference     = None
+        jobs          = []
         
         if job_site_enum == None:
             return None
