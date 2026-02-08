@@ -247,4 +247,69 @@ class Test_Scraper(unittest.TestCase):
                 test_expected[key]
             )
 
+    def test_parse_site(self):
+        pass
+
+    def test_grab_jobs(self):
+        _scraper = scraper.Scraper("assets/configs/driver_config.json") # use default config file to intiialise scraper
+
+        directories = [x[0] for x in os.walk("assets/tests/test_sites/")]
+        directories = [f"{os.getcwd()}\\{x}\\page1.html" for x in directories if x[-1].isnumeric()] # gets all "root" website searches
+
+        test_instances = {
+            "test1": job.JobSiteDetails(
+                job_card_id      = ".job-container",
+                job_title_id     = "[id=\"job-title\"]",
+                job_salary_id    = "[data-salary]",
+                job_location_id  = ".JOB-LOCATION",
+                job_poster_id    = ".job-poster'",
+                job_posted_on_id = ".job-since_posted'",
+                job_href_id      = ".job-application-link"
+            ),
+            "test2": job.JobSiteDetails( # this is incorrect right now
+                job_card_id      = ".job-container",
+                job_title_id     = "[id=\"job-title\"]",
+                job_salary_id    = "[data-salary]",
+                job_location_id  = ".JOB-LOCATION",
+                job_poster_id    = ".job-poster'",
+                job_posted_on_id = ".job-since_posted'",
+                job_href_id      = ".job-application-link"
+            ),
+        }
+
+        test_expected = {
+            "test1": [
+
+            ],
+            "test2": [
+
+            ]
+        }
+
+
+        for directory in directories:
+
+            _scraper.driver.get(directory)                      # synthesis making request to job site 
+            test_site = directory.split("/")[-1].split("\\")[0] # get the test site key from the directory we are in
+            test_instance = test_instances[test_site]           # the reference instance
+            j = _scraper.grab_jobs(test_instance)               # list of jobs grabbed
+            self.assertEqual(
+                j,
+                test_expected[test_site]
+            )
+            
+
+
+        test_expected = {
+
+
+
+        }
+
+        # scrape local sites for job objects
+        jobs = []
+
+        # _scraper.grab_jobs(test1_instance)
+
+        
 
