@@ -30,6 +30,7 @@ class Job:
     job_poster       : str
     job_posted_on    : str
     job_href         : str
+    job_time         : str
 
 @dataclass
 class JobSiteDetails:
@@ -57,16 +58,11 @@ class QueryParams:
 # Need a method to load these on boot and not hardcode values, allows user to change IDs/ClassNames/CSS_Selector when needed and doesnt need to change codebase
 REED_INSTANCE = JobSiteDetails(
 
-    job_card_id      = ".index-module_jobCard__body__vWzBf", # This is valid
+    job_card_id      = ".index-module_jobCard__body__vWzBf",
     job_title_id     = ".index-module_jobResultHeading__title__r7Yqg",
-    job_salary_id    = "[data-qa='job-metadata-salary']", # This is valid but selenium says its wrong?
+    job_salary_id    = "[data-qa='job-metadata-salary']",
     job_location_id  = "[data-qa='job-metadata-location']",
     job_poster_id    = "[data-qa='job-metadata-salary]'",
     job_posted_on_id = "[data-qa='job-metadata-salary]'",
     job_href_id      = "https://www.github.com"
-
-
-    #data-qa="job-metadata-salary"
-    #data-qa='job-metadata-salary'
-
 )
