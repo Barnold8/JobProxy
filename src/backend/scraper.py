@@ -154,34 +154,36 @@ class Scraper:
          
     def grab_jobs(self,reference:JobSiteDetails): # Todo: make function recursive to walk through pages on site
 
-
-
         cards = self.driver.find_elements(By.CSS_SELECTOR, reference.job_card_id)
+        jobs = []
 
-        # 1.2 use job site enum to refrence information on how to get to next page and how to grab jobs ✅
         for card in cards:
             #TODO: Write tests for test_scraper.py and try and use WebElement structure
             try:
-            # 2. 
-            # 2.1 grab relevant job info for each displayed job on a page
+
                 j = Job(
                     job_title     = card.find_element(By.CSS_SELECTOR,reference.job_title_id), 
                     job_location  = card.find_element(By.CSS_SELECTOR,reference.job_location_id),
                     job_salary    = card.find_element(By.CSS_SELECTOR,reference.job_salary_id),
-                    job_posted_on = card.find_element(By.CSS_SELECTOR,reference.job_title_id),
-                    job_poster    = card.find_element(By.CSS_SELECTOR,reference.job_title_id),
-                    job_href      = card.find_element(By.CSS_SELECTOR,reference.job_title_id)
+                    job_posted_on = card.find_element(By.CSS_SELECTOR,reference.job_posted_on_id),
+                    job_poster    = card.find_element(By.CSS_SELECTOR,reference.job_poster_id),
+                    job_href      = card.find_element(By.CSS_SELECTOR,reference.job_href_id),
+                    job_time      = card.find_element(By.CSS_SELECTOR,reference.job_time_id)
                 )
                 print(f"""\t\tJOB\n{"-"*32}
-    Title:      {j.job_title.text}
-    Location:   {j.job_location.text}
-    Salary:     {j.job_salary.text}
-    Posted on:  {j.job_posted_on.text}
-    Posted by:  {j.job_poster.text}
-                """)
+                    Title:      {j.job_title.text}
+                    Location:   {j.job_location.text}
+                    Salary:     {j.job_salary.text}
+                    Posted on:  {j.job_posted_on.text}
+                    Posted by:  {j.job_poster.text}
+                                """)
+
+                jobs.append(j)
+
             except Exception as e: # identify error type and catch it
                 print(f"Error: {e}")
-                
+                return None
+        return jobs
             # 2.2 navigate to "next" page and grab jobs to n pages (n could be predetermined amount of pages)
 
     def parse_site(self,job_site:str,params:QueryParams,strict:bool = False)-> None: # Need to return some object/list of objects
@@ -200,7 +202,7 @@ class Scraper:
             JobSite.REED   : REED_INSTANCE
         }
         
-        # 1 convert string to enum ✅ 
+
         job_site_enum = sites[job_site] if job_site.lower() in sites.keys() else None 
         url           = None
         reference     = None
@@ -219,11 +221,11 @@ class Scraper:
             case _:
                 return None
         
-        # 2.  go to web address ✅ 
+
         if url != None:
             self.driver.get(url)
             jobs = self.grab_jobs(reference)
-            pass
+            
 
         return None
 
