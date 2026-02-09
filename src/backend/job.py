@@ -43,6 +43,7 @@ class JobSiteDetails:
     job_posted_on_id : str
     job_time_id      : str
     job_href_id      : str
+    job_next_page_id : str
 
 @dataclass
 class QueryParams:
@@ -66,5 +67,6 @@ REED_INSTANCE = JobSiteDetails(
     job_poster_id    = "[data-qa='job-metadata-salary]'",
     job_posted_on_id = "[data-qa='job-metadata-salary]'",
     job_href_id      = "https://www.github.com",
-    job_time_id      = "N/A for now"
+    job_time_id      = "N/A for now",
+    job_next_page_id = "N/A for now"
 )
