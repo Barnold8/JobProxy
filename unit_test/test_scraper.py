@@ -264,18 +264,20 @@ class Test_Scraper(unittest.TestCase):
                 job_location_id  = ".JOB-LOCATION",
                 job_poster_id    = ".job-poster",
                 job_posted_on_id = ".job-since-posted",
-                job_href_id      = ".job-application-link",
-                job_time_id      = ".job-Time-descriptor"
+                job_href_id      = ".job-application-link a",
+                job_time_id      = ".job-Time-descriptor",
+                job_next_page_id = ".Next a"
             ),
-            "test2": job.JobSiteDetails( # this is incorrect right now
+            "test2": job.JobSiteDetails(
                 job_card_id      = ".job-container",
                 job_title_id     = "[id=\"job-title\"]",
                 job_salary_id    = "[data-salary]",
                 job_location_id  = ".JOB-LOCATION",
-                job_poster_id    = ".job-poster'",
-                job_posted_on_id = ".job-since_posted'",
-                job_href_id      = ".job-application-link",
-                job_time_id      = ".job-Time-descriptor"
+                job_poster_id    = ".job-poster",
+                job_posted_on_id = ".job-since-posted",
+                job_href_id      = ".job-application-link a",
+                job_time_id      = ".job-Time-descriptor",
+                job_next_page_id = ".Next a"
             ),
         }
 
@@ -290,78 +292,78 @@ class Test_Scraper(unittest.TestCase):
                     job_time="Part time",
                     job_href="www.google.com"
                 ),
-                # job.Job(
-                #     job_title="Cleaner",
-                #     job_salary="1-2",
-                #     job_location="San Fransisco",
-                #     job_poster="Job",
-                #     job_posted_on="1 month ago",
-                #     job_time="Full time",
-                #     job_href="www.google.com"
-                # ),
-                # job.Job(
-                #     job_title="Some type of job",
-                #     job_salary="N/A",
-                #     job_location="...",
-                #     job_poster="Job Jobbington1",
-                #     job_posted_on="25 days ago",
-                #     job_time="Comes in once a week",
-                #     job_href="www.google.com"
-                # ),
-                # job.Job(
-                #     job_title="2fa enthusiast",
-                #     job_salary="2fa",
-                #     job_location="Whitechapel",
-                #     job_poster="Your local jobbery",
-                #     job_posted_on="32 seconds ago",
-                #     job_time="24/7",
-                #     job_href="www.google.com"
-                # ),
-                # job.Job(
-                #     job_title="Data Analyst",
-                #     job_salary="1-2",
-                #     job_location="RivErw0od",
-                #     job_poster="The job man",
-                #     job_posted_on="1 hour ago",
-                #     job_time="Training",
-                #     job_href="www.google.com"
-                # ),
-                # job.Job(
-                #     job_title="Some type of job",
-                #     job_salary="N/A",
-                #     job_location="...",
-                #     job_poster="Jobs r us",
-                #     job_posted_on="Just now",
-                #     job_time="Comes in once a week",
-                #     job_href="www.google.com"
-                # ),
-                # job.Job(
-                #     job_title="Unit test writer (god help them)",
-                #     job_salary="12-1000",
-                #     job_location="Morthal",
-                #     job_poster="Job Jobbington",
-                #     job_posted_on="3 month ago",
-                #     job_time="Part time",
-                #     job_href="www.google.com"
-                # ),
-                # job.Job(
-                #     job_title="Cleaner",
-                #     job_salary="1-2",
-                #     job_location="San Fransisco",
-                #     job_poster="The jobsmith",
-                #     job_posted_on="9 days ago",
-                #     job_time="Full time",
-                #     job_href="www.google.com"
-                # ),
-                # job.Job(
-                #     job_title="Some type of job",
-                #     job_salary="N/A",
-                #     job_location="...",
-                #     job_poster="Not provided",
-                #     job_posted_on="1 year ago",
-                #     job_time="Comes in once a week",
-                #     job_href="www.google.com"
-                # ),
+                job.Job(
+                    job_title="Cleaner",
+                    job_salary="1-2",
+                    job_location="San Fransisco",
+                    job_poster="Job",
+                    job_posted_on="1 month ago",
+                    job_time="Full time",
+                    job_href="www.google.com"
+                ),
+                job.Job(
+                    job_title="Some type of job",
+                    job_salary="N/A",
+                    job_location="...",
+                    job_poster="Job Jobbington1",
+                    job_posted_on="25 days ago",
+                    job_time="Comes in once a week",
+                    job_href="www.google.com"
+                ),
+                job.Job(
+                    job_title="2fa enthusiast",
+                    job_salary="2fa",
+                    job_location="Whitechapel",
+                    job_poster="Your local jobbery",
+                    job_posted_on="32 seconds ago",
+                    job_time="24/7",
+                    job_href="www.google.com"
+                ),
+                job.Job(
+                    job_title="Data Analyst",
+                    job_salary="1-2",
+                    job_location="RivErw0od",
+                    job_poster="The job man",
+                    job_posted_on="1 hour ago",
+                    job_time="Training",
+                    job_href="www.google.com"
+                ),
+                job.Job(
+                    job_title="Some type of job",
+                    job_salary="N/A",
+                    job_location="...",
+                    job_poster="Jobs r us",
+                    job_posted_on="Just now",
+                    job_time="Comes in once a week",
+                    job_href="www.google.com"
+                ),
+                job.Job(
+                    job_title="Unit test writer (god help them)",
+                    job_salary="12-1000",
+                    job_location="Morthal",
+                    job_poster="Job Jobbington",
+                    job_posted_on="3 month ago",
+                    job_time="Part time",
+                    job_href="www.google.com"
+                ),
+                job.Job(
+                    job_title="Cleaner",
+                    job_salary="1-2",
+                    job_location="San Fransisco",
+                    job_poster="The jobsmith",
+                    job_posted_on="9 days ago",
+                    job_time="Full time",
+                    job_href="www.google.com"
+                ),
+                job.Job(
+                    job_title="Some type of job",
+                    job_salary="N/A",
+                    job_location="...",
+                    job_poster="Not provided",
+                    job_posted_on="1 year ago",
+                    job_time="Comes in once a week",
+                    job_href="www.google.com"
+                ),
             ],
             "test2": [
 
