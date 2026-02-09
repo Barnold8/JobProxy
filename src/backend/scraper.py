@@ -8,6 +8,7 @@ from selenium.webdriver.remote.webdriver import WebDriver
 from selenium.webdriver.chrome.options import Options as default_chrome_options
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from selenium.common.exceptions import WebDriverException
 from backend.job import JobSite, QueryParams,Job, JobSiteDetails, REED_INSTANCE
 from backend.url_formatter import URL_Formatter
 from typing import Optional
@@ -152,32 +153,44 @@ class Scraper:
 
         return options_copy
          
-    def grab_jobs(self,reference:JobSiteDetails): # Todo: make function recursive to walk through pages on site
+    def grab_jobs(self,reference:JobSiteDetails,jobs:List[Job] = []): # Todo: make function recursive to walk through pages on site
 
-        cards = self.driver.find_elements(By.CSS_SELECTOR, reference.job_card_id)
-        jobs = []
+        #TODO: Write tests for test_scraper.py and try and use WebElement structure
+        cards    = self.driver.find_elements(By.CSS_SELECTOR, reference.job_card_id)
+        nextLink = None
 
         for card in cards:
-            #TODO: Write tests for test_scraper.py and try and use WebElement structure
             try:
-                
+
+                href = card.find_element(By.CSS_SELECTOR,reference.job_href_id)
+                href = href.get_dom_attribute("href")
                 j = Job(
                     job_title     = card.find_element(By.CSS_SELECTOR,reference.job_title_id).text,
                     job_location  = card.find_element(By.CSS_SELECTOR,reference.job_location_id).text,
                     job_salary    = card.find_element(By.CSS_SELECTOR,reference.job_salary_id).text,
                     job_posted_on = card.find_element(By.CSS_SELECTOR,reference.job_posted_on_id).text,
                     job_poster    = card.find_element(By.CSS_SELECTOR,reference.job_poster_id).text,
-                    job_href      = card.find_element(By.CSS_SELECTOR,reference.job_href_id).text,
+                    job_href      = href,
                     job_time      = card.find_element(By.CSS_SELECTOR,reference.job_time_id).text
                 )
 
                 jobs.append(j)
 
-            except Exception as e: # identify error type and catch it
-                print(f"Error: {e}")
-                return None
+            except WebDriverException as webErr: # identify error type and catch it
+                pass # passing because selenium throws an error if somebody even thinks about sneezing in its vicinity
+        
+        # Try catch essentially works like an if statement for "if a next button exists"
+        try:
+            
+            nextLink = self.driver.find_element(By.CSS_SELECTOR,reference.job_next_page_id)
+            self.driver.get(nextLink.get_attribute('href'))
+            return self.grab_jobs(reference=reference,jobs=jobs)
+        
+        except WebDriverException as webErr:
+            pass  # passing because selenium throws an error if somebody even thinks about sneezing in its vicinity
+
         return jobs
-            # 2.2 navigate to "next" page and grab jobs to n pages (n could be predetermined amount of pages)
+            
 
     def parse_site(self,job_site:str,params:QueryParams,strict:bool = False)-> None: # Need to return some object/list of objects
         # Make this function do the delegation of what URL to format to and then get url from there as a "root"
@@ -217,7 +230,7 @@ class Scraper:
 
         if url != None:
             self.driver.get(url)
-            jobs = self.grab_jobs(reference)
+            jobs = self.grab_jobs(url,reference)
             
 
         return None
