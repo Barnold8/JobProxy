@@ -370,14 +370,13 @@ class Test_Scraper(unittest.TestCase):
             ]
         }
 
-
+        # TODO: write tests for site "test2"
         for directory in directories:
             _scraper.driver.get(directory)                      # synthesis making request to job site 
             test_site = directory.split("/")[-1].split("\\")[0] # get the test site key from the directory we are in
-            if test_site != "test2": # TEMP FOR DEBUGGING
-                test_instance = test_instances[test_site]           # the reference instance
-                j = _scraper.grab_jobs(test_instance)               # list of jobs grabbed
-                self.assertEqual(
-                    j,
-                    test_expected[test_site]
-                )
+            test_instance = test_instances[test_site]           # the reference instance
+            j = _scraper.grab_jobs(test_instance)               # list of jobs grabbed
+            self.assertEqual(
+                j,
+                test_expected[test_site]
+            )
