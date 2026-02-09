@@ -160,23 +160,16 @@ class Scraper:
         for card in cards:
             #TODO: Write tests for test_scraper.py and try and use WebElement structure
             try:
-
+                
                 j = Job(
-                    job_title     = card.find_element(By.CSS_SELECTOR,reference.job_title_id), 
-                    job_location  = card.find_element(By.CSS_SELECTOR,reference.job_location_id),
-                    job_salary    = card.find_element(By.CSS_SELECTOR,reference.job_salary_id),
-                    job_posted_on = card.find_element(By.CSS_SELECTOR,reference.job_posted_on_id),
-                    job_poster    = card.find_element(By.CSS_SELECTOR,reference.job_poster_id),
-                    job_href      = card.find_element(By.CSS_SELECTOR,reference.job_href_id),
-                    job_time      = card.find_element(By.CSS_SELECTOR,reference.job_time_id)
+                    job_title     = card.find_element(By.CSS_SELECTOR,reference.job_title_id).text,
+                    job_location  = card.find_element(By.CSS_SELECTOR,reference.job_location_id).text,
+                    job_salary    = card.find_element(By.CSS_SELECTOR,reference.job_salary_id).text,
+                    job_posted_on = card.find_element(By.CSS_SELECTOR,reference.job_posted_on_id).text,
+                    job_poster    = card.find_element(By.CSS_SELECTOR,reference.job_poster_id).text,
+                    job_href      = card.find_element(By.CSS_SELECTOR,reference.job_href_id).text,
+                    job_time      = card.find_element(By.CSS_SELECTOR,reference.job_time_id).text
                 )
-                print(f"""\t\tJOB\n{"-"*32}
-                    Title:      {j.job_title.text}
-                    Location:   {j.job_location.text}
-                    Salary:     {j.job_salary.text}
-                    Posted on:  {j.job_posted_on.text}
-                    Posted by:  {j.job_poster.text}
-                                """)
 
                 jobs.append(j)
 
